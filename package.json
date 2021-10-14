@@ -1,0 +1,12 @@
+{
+  "name": "nft",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/remydao/nft.git",
+  "author": "remydao <remy.dao.pro@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "sequelize": "^6.7.0",
+    "sqlite3": "^5.0.2"
+  }
+}
