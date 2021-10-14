@@ -6,6 +6,13 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement: true
         },
+        address: {
+            type: type.STRING,
+            validate: {
+                is: /^0x[a-fA-F0-9]{40}$/,
+            },
+            allowNull: false,
+        },
         role: {
             type: type.STRING,
             allowNull: false,
@@ -21,6 +28,10 @@ module.exports = (sequelize, type) => {
             validate: {
                 isEmail: true
             }
-        }
+        },
+        password: {
+            type: type.STRING,
+            allowNull: false,
+        },
     });
 }
