@@ -6,6 +6,7 @@ const sequelize = new Sequelize({
     storage: './database.sqlite'
 });
 
+// All models are defined here
 const User = UserModel(sequelize, Sequelize)
 
 // Attention ENLEVER LE FORCE TRUC QUI ERASE LES TABLES A CHAQUE STARTUP
