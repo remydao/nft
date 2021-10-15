@@ -1,6 +1,6 @@
-const { User } = require('../sequelize/sequelize')
+import { User } from "../sequelize/sequelize";
 
-const addUser = async (req, res) => {
+const addUser = async (req: any, res: any) => {
     var randomString = Math.random().toString(36).slice(-8);
 
     var user = {
@@ -20,17 +20,15 @@ const addUser = async (req, res) => {
     }*/
 
     await User.create(user)
-    .then(function (user) {
-        console.log("User created:" + JSON.stringify(user));
-        return res.status(200).send("OK");
-    })
-    .catch(function (err) {
-        // have to implement error handler
-        console.log(err);
-        return res.status(400).send("Problem in request");
-    });
+        .then((user: any) => {
+            console.log("User created:" + JSON.stringify(user));
+            return res.status(200).send("OK");
+        })
+        .catch((err: any) => {
+            // have to implement error handler
+            console.log(err);
+            return res.status(400).send("Problem in request");
+        });
 }
 
-module.exports = {
-    addUser
-}
+export { addUser };

@@ -1,6 +1,7 @@
-const express = require('express');
+import express from "express";
+import { addUser } from "../controllers/user-controller";
+
 const router = express.Router();
-const {addUser} = require('../controllers/user_controller');
 
 // Add a task to the database
 router.post('/user', addUser);

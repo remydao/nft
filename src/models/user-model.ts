@@ -1,28 +1,30 @@
-module.exports = (sequelize, type) => {
-    return sequelize.define('Users', {
+import { DataTypes } from "sequelize";
+
+const userModel = 
+    {
         id: {
-            type: type.BIGINT,
+            type: DataTypes.BIGINT,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
         address: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             validate: {
                 is: /^0x[a-fA-F0-9]{40}$/,
             },
             allowNull: false,
         },
         role: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         name: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         email: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             unique: true,
             validate: {
@@ -30,8 +32,10 @@ module.exports = (sequelize, type) => {
             }
         },
         password: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
-    });
-}
+    };
+
+
+export { userModel };

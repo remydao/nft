@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-#sqlite db inmemory
+# sqlite db inmemory
 database.sqlite
