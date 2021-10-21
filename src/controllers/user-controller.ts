@@ -1,3 +1,4 @@
+import { logRegistration } from "../utils/logging";
 import { User, Team } from "../sequelize/sequelize";
 
 const addUser = async (req: any, res: any) => {
@@ -27,7 +28,7 @@ const addUser = async (req: any, res: any) => {
     await Team.create(team).then(async () => {
         await User.create(user)
         .then((user: any) => {
-            console.log("User created:" + JSON.stringify(user));
+            logRegistration(user);
             return res.status(200).send("OK");
         })
         .catch((err: any) => {
