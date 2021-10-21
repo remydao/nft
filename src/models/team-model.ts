@@ -14,7 +14,6 @@ const teamModel =
         },
         balance: {
             type: DataTypes.BIGINT,
-            allowNull: false,
         },
     };
 
