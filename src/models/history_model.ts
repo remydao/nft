@@ -7,7 +7,11 @@ const ownerHistoryModel = {
         primaryKey: true,
         autoIncrement: true
     },
-    ownerId: {
+    buyerId: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+    },
+    sellerId: {
         type: DataTypes.BIGINT,
         allowNull: false,
     },
@@ -15,7 +19,7 @@ const ownerHistoryModel = {
         type: DataTypes.BIGINT,
         allowNull: false,
     },
-    saleDate: {
+    date: {
         type: DataTypes.DATE,
         allowNull: false,
     }

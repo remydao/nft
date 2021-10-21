@@ -8,6 +8,7 @@ app.use(require('./api/add-user'));
 app.use(require('./api/add-nft'));
 app.use(require('./api/stats'));
 app.use(require('./api/add-team'));
+app.use(require('./api/add-user-to-team'));
 
 const port: number = 3000;
 app.listen(port, function () {
