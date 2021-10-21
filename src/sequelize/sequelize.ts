@@ -15,7 +15,7 @@ const User = sequelize.define('User', userModel);
 const Team = sequelize.define('Team', teamModel);
 const NFT = sequelize.define('NFT', nftModel);
 const Collection = sequelize.define('Collection', collectionModel);
-const OwnerHistory = sequelize.define('ownerHistory', historyModel)
+const History = sequelize.define('ownerHistory', historyModel)
 
 // Foreign keys
 Team.hasMany(User, { as: "users" });
@@ -35,4 +35,4 @@ sequelize.sync({ force: true })
     console.log(`Database & tables created!`)
 })
 
-export { User, Team, NFT, Collection };
+export { User, Team, NFT, Collection, History };
