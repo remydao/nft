@@ -4,6 +4,9 @@ const cors = require('cors')
 
 const app = express();
 var bodyParser = require('body-parser')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('../swagger.json')
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json());
 
 
@@ -15,6 +18,7 @@ app.use(require('./api/add-nft'));
 app.use(require('./api/stats'));
 app.use(require('./api/add-team'));
 app.use(require('./api/authorization'))
+app.use(require('./api/change-user-role'))
 
 const port: number = 3000;
 app.listen(port, function () {

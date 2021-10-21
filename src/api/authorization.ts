@@ -1,7 +1,12 @@
 import express, {Router} from "express";
 import { User } from "../sequelize/sequelize";
 import { userModel } from "../models/user-model"
-import {checkTokenMiddleware, extractBearerToken} from "../services/authorization";
+import {
+    checkAdminTokenMiddleware,
+    checkTokenMiddleware,
+    extractBearerToken,
+    extractToken
+} from "../services/authorization";
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config();
@@ -11,8 +16,6 @@ const router = express.Router()
 router.post('/login', async (req, res) => {
     if (!req.body.email || !req.body.password)
         return res.status(400).json({message: 'Error. Please enter the correct username and password'})
-    console.log(`req body : ${JSON.stringify(req.body)}`)
-
     try {
         const user: any = await User.findOne({
             where: {
@@ -20,7 +23,6 @@ router.post('/login', async (req, res) => {
                 email: req.body.email
             }
         })
-        console.log(user)
         if (!user)
             return res.status(400).json({ message: 'Error. Wrong login or password' })
 
@@ -37,25 +39,21 @@ router.post('/login', async (req, res) => {
     }
 })
 
-// route de test
+
+
+
 
 router.get('/test', checkTokenMiddleware, (req : any, res : any) => {
-    // Récupération du token
-    const token = req.headers.authorization && extractBearerToken(req.headers.authorization)
-    // Décodage du token
-    const decoded = jwt.decode(token, { complete: false })
-
-    return res.json({ content: decoded })
+    return res.json({ content: extractToken(req.headers.authorization)})
 })
 
-router.get('/testadmin', checkTokenMiddleware, (req : any, res : any) => {
-    // Récupération du token
-    const token = req.headers.authorization && extractBearerToken(req.headers.authorization)
-    // Décodage du token
-    const decoded = jwt.decode(token, {complete: false})
-    if (decoded.content.role !== "admin")
-        return res.status(401).send("unauthorized")
-    return res.json({content: decoded})
+router.get('/testadmin', checkAdminTokenMiddleware, (req : any, res : any) => {
+    const token = extractToken(req.headers.authorization)
+    return res.json({content: token})
 })
+
+
+
+
 
 module.exports = router;
