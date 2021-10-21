@@ -3,6 +3,7 @@ import { collectionModel } from "../models/collection-model";
 import { nftModel } from "../models/nft-model";
 import { teamModel } from "../models/team-model";
 import { userModel } from '../models/user-model';
+import { ownerHistoryModel } from "../models/owner_history_model";
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -14,6 +15,7 @@ const User = sequelize.define('User', userModel);
 const Team = sequelize.define('Team', teamModel);
 const NFT = sequelize.define('NFT', nftModel);
 const Collection = sequelize.define('Collection', collectionModel);
+const OwnerHistory = sequelize.define('ownerHistory', ownerHistoryModel)
 
 // Foreign keys
 Team.hasMany(User, { as: "users" });
@@ -25,6 +27,8 @@ User.belongsTo(Team, {
 Collection.hasMany(NFT, { as: "NFTs"});
 
 NFT.hasMany(User, { as: "owners" });
+
+User.hasMany(OwnerHistory, { as: "ownerHistories"})
 
 // Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
