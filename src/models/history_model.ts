@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-const ownerHistoryModel = {
+const historyModel = {
     id: {
         type: DataTypes.BIGINT,
         allowNull: false,
@@ -25,4 +25,4 @@ const ownerHistoryModel = {
     }
 }
 
-export { ownerHistoryModel };
+export { historyModel };
