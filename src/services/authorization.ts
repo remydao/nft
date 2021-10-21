@@ -1,5 +1,7 @@
+import {User} from "../sequelize/sequelize";
 const jwt = require('jsonwebtoken')
-//import { jwt } from "jsonwebtoken";
+const dotenv = require('dotenv')
+dotenv.config(); // load env file
 
 // get BearerToken
 const extractBearerToken = (headerValue : any) => {
@@ -47,9 +49,37 @@ const checkTokenMiddleware = (req: any, res: any, next: any) => {
     })
 }
 
+//login method
+const getLogin = async (req: any, res: any) => {
+    if (!req.body.email || !req.body.password)
+        return res.status(400).json({message: 'Error. Please enter the correct username and password'})
+    try {
+        const user: any = await User.findOne({
+            where: {
+                password: req.body.password,
+                email: req.body.email
+            }
+        })
+        if (!user)
+            return res.status(400).json({ message: 'Error. Wrong login or password' })
+
+        const token = jwt.sign({
+            id : user.id,
+            name: user.name,
+            role: user.role
+        }, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
+
+        return res.json({ access_token: token })
+    }
+    catch (err) {
+        return res.status(400).json({ message: 'Error. Can\'t access to database' })
+    }
+}
+
+// extract the token from the autorization header
 const extractToken = (token: any) => {
     const res = token && extractBearerToken(token);
     return jwt.decode(res, { complete: false })
 }
 
-export { extractBearerToken, checkTokenMiddleware, checkAdminTokenMiddleware, extractToken }
+export { extractBearerToken, checkTokenMiddleware, checkAdminTokenMiddleware, extractToken, getLogin }
