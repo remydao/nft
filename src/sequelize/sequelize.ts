@@ -3,7 +3,7 @@ import { collectionModel } from "../models/collection-model";
 import { nftModel } from "../models/nft-model";
 import { teamModel } from "../models/team-model";
 import { userModel } from '../models/user-model';
-import { ownerHistoryModel } from "../models/owner_history_model";
+import { ownerHistoryModel } from "../models/history_model";
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
