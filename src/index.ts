@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 app.use(require('./api/add-user'));
 app.use(require('./api/best-seller-teams'))
 app.use(require('./api/add-team'));
+app.use(require('./api/add-user-to-team'));
 
 const port: number = 3000;
 app.listen(port, function () {
