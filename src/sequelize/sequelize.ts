@@ -22,9 +22,9 @@ User.belongsTo(Team, {
   as: "team",
 });
 
-// NFT.hasMany
+Collection.hasMany(NFT, { as: "NFTs"});
 
-
+NFT.hasMany(User, { as: "owners" });
 
 // Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
