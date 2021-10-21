@@ -1,9 +1,9 @@
 import express from "express";
-import { addTeam } from "../controllers/add-team-controller";
+import { addTeam } from "../controllers/team-controller";
+import { checkTokenMiddleware } from "../services/authorization";
 
 const router = express.Router();
 
-// Add a task to the database
-router.post('/team', addTeam);
+router.post('/team', checkTokenMiddleware, addTeam);
 
 module.exports = router;
