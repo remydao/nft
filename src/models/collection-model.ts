@@ -19,9 +19,9 @@ const collectionModel =
             type: DataTypes.ENUM("Draft", "Published", "Archived"),
             allowNull: false
         },
-        /*autoArchiveTime: {
-
-        }*/
+        autoArchiveTime: {
+            type: DataTypes.DATE,
+        }
     };
 
 

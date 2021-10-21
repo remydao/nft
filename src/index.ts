@@ -5,7 +5,8 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
 app.use(require('./api/add-user'));
-app.use(require('./api/best-seller-teams'))
+app.use(require('./api/add-nft'));
+app.use(require('./api/stats'));
 app.use(require('./api/add-team'));
 app.use(require('./api/add-user-to-team'));
 

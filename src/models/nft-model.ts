@@ -20,7 +20,10 @@ const nftModel =
             type: DataTypes.ENUM("Draft", "Published"),
             allowNull: false
         },
-        // ADD OWNER HISTORY
+        rate: {
+            type: DataTypes.NUMBER,
+            allowNull: false
+        }
     };
 
 
