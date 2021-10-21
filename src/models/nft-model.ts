@@ -20,6 +20,10 @@ const nftModel =
             type: DataTypes.ENUM("Draft", "Published"),
             allowNull: false
         },
+        rate: {
+            type: DataTypes.NUMBER,
+            allowNull: false
+        }
     };
 
 
