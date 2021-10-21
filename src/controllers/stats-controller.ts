@@ -12,11 +12,10 @@ const getBestSellerCollections = async (req: any, res: any) => {
 
 const getMostRatedNFTs = async (req: any, res: any) => {
     await NFT.findAll({
-        attributes: [[Sequelize.fn('max', Sequelize.col('rate')), 'MostRatedNFTs']],
-        raw: true
+        order:[['rate', 'DESC']]
         })
         .then(async  (NFTs: any) => {
-            if (NFTs.length < 1)
+            if (NFTs === null || NFTs.length < 1)
                 return res.status(400).send("No NFTs");
             return res.status(200).json({content: NFTs})
         })
@@ -29,7 +28,7 @@ const getMostRatedNFTs = async (req: any, res: any) => {
 
 const getLastSells = async (req: any, res: any) => {
     await History.findAll({
-        attributes: [[Sequelize.fn('max', Sequelize.col('rate')), 'LastSells']],
+        order: [['date', 'DESC']],
         raw: true
         })
         .then(async (lastSells: any) => {

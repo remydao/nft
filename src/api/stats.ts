@@ -4,10 +4,10 @@ import { checkTokenMiddleware } from "../services/authorization";
 
 const router = express.Router();
 
-router.post('/stats/best-seller-teams', getBestSellerTeams);
-router.post('/stats/best-seller-collections', getBestSellerCollections);
-router.post('/stats/most-rated-nfts', getMostRatedNFTs);
-router.post('/stats/last-sells', getLastSells);
-router.post('/stats/own-sells', checkTokenMiddleware, getOwnSells);
+router.get('/stats/best-seller-teams', getBestSellerTeams);
+router.get('/stats/best-seller-collections', getBestSellerCollections);
+router.get('/stats/most-rated-nfts', getMostRatedNFTs);
+router.get('/stats/last-sells', getLastSells);
+router.get('/stats/own-sells', checkTokenMiddleware, getOwnSells);
 
 module.exports = router;

@@ -13,6 +13,7 @@ router.post('/admin/add-nft', async (req: any, res: any) => {
         name: req.body.name,
         price: req.body.price,
         status: req.body.status,
+        rate: 0
     };
     
 
