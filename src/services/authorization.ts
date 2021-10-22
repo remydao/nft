@@ -24,7 +24,7 @@ const checkAdminTokenMiddleware = (req: any, res: any, next: any) => {
             res.status(401).json({ message: 'Error. Bad token' })
         }
         else if (decodedToken.role !== "admin") {
-            res.status(401).json({ message: 'You don\'t have the permission to access this endpoint' })
+            res.status(403).json({ message: 'You don\'t have the permission to access this endpoint' })
         }
         else {
             return next()
