@@ -40,4 +40,21 @@ const addUser = async (req: any, res: any) => {
     //});
 }
 
-export { addUser };
+const updateUserRole = async (req: any, res: any) => {
+
+    await User.findAll({
+        where : {role: "admin"}
+    })
+    .then(async (users: any) => {
+        if (users.length <= 1)// we can't delete an admin
+            return res.status(400).send("You can't delete the last admin of the API.")
+        const result = await User.update({role: req.body.role}, {where: {id: req.params.userId}})
+        return res.status(200).json({content: result})
+    })
+    .catch((err: any) => {
+        console.log(err)
+        return res.status(400).send("There is a problem with the database.");
+    })
+}
+
+export { addUser, updateUserRole };
