@@ -1,9 +1,10 @@
 import express from "express";
-import { addUser } from "../controllers/user-controller";
+import {addUser, addUserAdmin} from "../controllers/user-controller";
+import {checkAdminTokenMiddleware} from "../services/authorization";
 
 const router = express.Router();
 
-// Add a task to the database
 router.post('/user', addUser);
+router.post('/admin/user', checkAdminTokenMiddleware, addUserAdmin)
 
 module.exports = router;

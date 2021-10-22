@@ -1,5 +1,5 @@
 import { NFT, User } from "../sequelize/sequelize";
-import { extractBearerToken, extractToken } from "../services/authorization";
+import { extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
 
 const addNFT = async (req: any, res: any) => {
@@ -8,6 +8,10 @@ const addNFT = async (req: any, res: any) => {
         return res.status(400).send("Please put name, price and status in request body.");
     
     try {
+        const token = extractToken(req.headers.authorization);
+        if (token.role !== "admin")
+            return res.status(403).send("You are not admin");
+
         var nft = {
             name: req.body.name,
             price: req.body.price,
@@ -41,7 +45,10 @@ const sellNFT = async (req: any, res: any) => {
 
     const token = extractToken(req.headers.authorization);
 
-    const seller: any = await User.findByPk(token.id).catch((err) => { return res.status(500).send("Internal server error"); });
+    const seller: any = await User.findByPk(token.id).catch((err) => { 
+        return res.status(500).send("Internal server error");
+    });
+    
     if (!seller)
         return res.status(500).send("Internal server error");
 
