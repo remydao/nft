@@ -1,4 +1,5 @@
 import { NFT, User } from "../sequelize/sequelize";
+import { extractBearerToken, extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
 
 const addNFT = async (req: any, res: any) => {
@@ -38,10 +39,11 @@ const sellNFT = async (req: any, res: any) => {
     if (!nft)
         return res.status(404).send("NFT with id = " + req.body.nftId + " not found.");
 
-    /* TODO: GET ID FROM AUTHORIZATION HEADER TO GET SELLER */
-    var sellerId: number = 1;
-    const seller: any = await User.findByPk(sellerId);
-    /* TODO: CHECK SELLER != null */
+    const token = extractToken(req.headers.authorization);
+
+    const seller: any = await User.findByPk(token.id).catch((err) => { return res.status(500).send("Internal server error"); });
+    if (!seller)
+        return res.status(500).send("Internal server error");
 
     const buyer: any = await User.findByPk(req.body.buyerId);
     if (!buyer)
