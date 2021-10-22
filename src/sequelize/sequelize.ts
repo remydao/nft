@@ -29,7 +29,7 @@ Collection.hasMany(NFT, { as: "NFTs"});
 NFT.hasMany(User, { as: "owners" });
 
 
-// Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
+// TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
   .then(() => {
     console.log(`Database & tables created!`)
