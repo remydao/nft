@@ -1,10 +1,9 @@
 import express from "express";
-const cors = require('cors')
-
+import cors from "cors";
+import bodyParser from "body-parser";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
-var bodyParser = require('body-parser')
-const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../swagger.json')
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json());
