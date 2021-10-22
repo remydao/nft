@@ -76,4 +76,20 @@ const updateUserRole = async (req: any, res: any) => {
     })
 }
 
-export { addUser, updateUserRole, addUserAdmin };
+const deleteUser = async (req: any, res: any) => {
+    const token = extractToken(req.headers.authorization)
+    if (!req.params.userId && typeof req.params.userId === 'number')
+        return res.status(400).send("specify the good param for the query")
+    const result = await User.destroy({
+        where : {
+            id: req.params.userId
+        }
+    })
+    .catch((err: any) => {
+        return res.status(400).send("Probleme with the database")
+    })
+    return res.status(200).json(`User with id ${req.params.userId} has been deleted`)
+
+}
+
+export { addUser, updateUserRole, addUserAdmin, deleteUser };
