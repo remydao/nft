@@ -7,7 +7,7 @@ const router = express.Router();
 // Add a nft to the database
 router.post('/admin/add-nft', checkAdminTokenMiddleware, addNFT);
 
-router.put('/sell-nft/', checkTokenMiddleware, sellNFT);
+router.put('/sell-nft', checkTokenMiddleware, sellNFT);
 
 router.put('/rate-nft/', checkTokenMiddleware, rateNFT);
 
