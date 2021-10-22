@@ -1,5 +1,8 @@
 import express from "express";
+import { ValidationError } from "sequelize/types";
+import { NamespaceBody } from "typescript";
 import { NFT, Team, User } from "../sequelize/sequelize";
+import { handleValidationError } from "../utils/error-handler";
 
 const router = express.Router();
 
@@ -9,29 +12,32 @@ router.post('/admin/add-nft', async (req: any, res: any) => {
     if (!req.body.name || !req.body.price || !req.body.status)
         return res.status(400).send("Please put name, price and status in request body.");
     
-    var nft = {
-        name: req.body.name,
-        price: req.body.price,
-        status: req.body.status,
-    };
-    
-
-    await NFT.create(nft)
-    .then((nft: any) => 
-    {
-        console.log("NFT created:" + JSON.stringify(nft));
-        return res.status(200).send("OK");
-    })
-    .catch((err: any) => {
+    try {
+        var nft = {
+            name: req.body.name,
+            price: req.body.price,
+            status: req.body.status,
+        };
+        
+        await NFT.create(nft)
+        .then((nft: any) => 
+        {
+            console.log("NFT created:" + JSON.stringify(nft));
+            return res.status(200).send("OK");
+        })
+    }
+    catch (err: any) {
         console.log(err);
-        return res.status(400).send("Problem in request");
-    });
+
+        if (err.name === "SequelizeValidationError")
+            handleValidationError(err, res);
+    }
 });
 
 router.put('/sell-nft/', async (req: any, res: any) => {
     // Check body
     if (!req.body.nftId || !req.body.buyerId)
-        return res.status(400).send("Please put nftid, and buyerId in request body.");
+        return res.status(400).send("Please put nftId, and buyerId in request body.");
 
     const nft: any = await NFT.findByPk(req.body.nftId)
     if (!nft)
