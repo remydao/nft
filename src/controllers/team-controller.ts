@@ -1,7 +1,7 @@
 import { User, Team } from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 
-const addTeam = async (req: any, res: any) => {
+const createTeam = async (req: any, res: any) => {
     var team = {
         name: req.body.name
     }
@@ -64,4 +64,4 @@ const addToTeam = async (req: any, res: any) => {
 
 }
 
-export { addTeam, addToTeam };
+export { createTeam, addToTeam };
