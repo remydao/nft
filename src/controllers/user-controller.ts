@@ -42,8 +42,9 @@ const addUser = async (req: any, res: any) => {
 
 const updateUserRole = async (req: any, res: any) => {
 
-    await User.findAll({
-        where : {role: "admin"}
+    await User.findAll(
+    {
+        where: { role: "admin" }
     })
     .then(async (users: any) => {
         if (users.length <= 1)// we can't delete an admin
