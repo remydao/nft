@@ -1,4 +1,4 @@
-import { NFT, User } from "../sequelize/sequelize";
+import { NFT, Team, User } from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
 
@@ -39,16 +39,16 @@ const sellNFT = async (req: any, res: any) => {
     if (!req.body.nftId || !req.body.buyerId)
         return res.status(400).send("Please put nftId, and buyerId in request body.");
 
+    const token = extractToken(req.headers.authorization);
+
     const nft: any = await NFT.findByPk(req.body.nftId)
     if (!nft)
         return res.status(404).send("NFT with id = " + req.body.nftId + " not found.");
 
-    const token = extractToken(req.headers.authorization);
-
     const seller: any = await User.findByPk(token.id).catch((err) => { 
         return res.status(500).send("Internal server error");
     });
-    
+
     if (!seller)
         return res.status(500).send("Internal server error");
 
@@ -63,6 +63,10 @@ const sellNFT = async (req: any, res: any) => {
     if (buyerTeam.balance < nft.price)
         return res.status(403).send("Buyer with id = " + req.body.buyerId + " hasn't got enough money.");
 
+    var sellerTeam = seller.team
+    if (!sellerTeam)
+        return res.status(404).send("Seller with id = " + seller.id + " is not in a team.");
+
     buyerTeam.balance -= nft.price;
     buyer.save();
 
@@ -70,4 +74,24 @@ const sellNFT = async (req: any, res: any) => {
     seller.save();
 };
 
-export { addNFT, sellNFT };
+
+const rateNFT = async (req: any, res: any) => {
+    // Check body
+    if (!req.body.nftId || !req.body.rate)
+        return res.status(400).send("Please put nftId in request body.");
+
+    const nft: any = await NFT.findByPk(req.body.nftId)
+    if (!nft)
+        return res.status(404).send("NFT with id = " + req.body.nftId + " not found.");
+
+    const token = extractToken(req.headers.authorization);
+    if (!token)
+        return res.status(403).send("You are not logged in");
+
+    nft.rate = (nft.rate * nft.numberOfRate + req.body.rate) / (nft.numberOfRate + 1);
+    nft.numberOfRate++;
+    nft.save();
+}
+
+
+export { addNFT, sellNFT, rateNFT };

@@ -1,5 +1,5 @@
 import express from "express";
-import { addNFT, sellNFT } from "../controllers/nft-controller";
+import { addNFT, rateNFT, sellNFT } from "../controllers/nft-controller";
 import { checkAdminTokenMiddleware, checkTokenMiddleware } from "../services/authorization";
 
 const router = express.Router();
@@ -8,5 +8,7 @@ const router = express.Router();
 router.post('/admin/add-nft', checkAdminTokenMiddleware, addNFT);
 
 router.put('/sell-nft/', checkTokenMiddleware, sellNFT);
+
+router.put('/rate-nft/', checkTokenMiddleware, rateNFT);
 
 module.exports = router;

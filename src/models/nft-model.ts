@@ -23,6 +23,10 @@ const nftModel =
         rate: {
             type: DataTypes.NUMBER,
             allowNull: false
+        },
+        numberOfRate: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     };
 
