@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import {Collection} from "../sequelize/sequelize";
 
 const nftModel = 
     {
@@ -23,7 +24,14 @@ const nftModel =
         rate: {
             type: DataTypes.NUMBER,
             allowNull: false
-        }
+        },
+        collectionId: {
+            type: DataTypes.BIGINT,
+            references: {
+                model: Collection,
+                key: "id"
+            }
+        },
     };
 
 

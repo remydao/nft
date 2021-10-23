@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import {Collection, Team} from "../sequelize/sequelize";
 
 const userModel = 
     {
@@ -35,6 +36,14 @@ const userModel =
             type: DataTypes.STRING,
             allowNull: false,
         },
+        teamId: {
+            type: DataTypes.BIGINT,
+            allowNull: true,
+            references: {
+                model: Team,
+                key: "id"
+            }
+        }
     };
 
 

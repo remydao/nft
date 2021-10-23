@@ -25,8 +25,12 @@ User.belongsTo(Team, {
 });
 
 Collection.hasMany(NFT, { as: "NFTs"});
+NFT.belongsTo(Collection, {
+    foreignKey: "collectionId",
+    as: "collection",
+});
 
-NFT.hasMany(User, { as: "owners" });
+NFT.hasOne(User, { as: "owner" });
 
 
 // Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP

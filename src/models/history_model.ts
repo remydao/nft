@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import {Collection, NFT} from "../sequelize/sequelize";
 
 const historyModel = {
     id: {
@@ -18,6 +19,18 @@ const historyModel = {
     NFTId: {
         type: DataTypes.BIGINT,
         allowNull: false,
+        references: {
+            model: NFT,
+            key: "id"
+        }
+    },
+    CollectionId: {
+        type: DataTypes.BIGINT,
+        allowNull: true,
+        references: {
+            model: Collection,
+            key: "id"
+        }
     },
     date: {
         type: DataTypes.DATE,
