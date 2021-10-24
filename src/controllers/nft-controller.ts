@@ -91,7 +91,21 @@ const rateNFT = async (req: any, res: any) => {
     nft.rate = (nft.rate * nft.numberOfRate + req.body.rate) / (nft.numberOfRate + 1);
     nft.numberOfRate++;
     nft.save();
+    return res.status(200).send(`new nft rate: ${nft.rate}`)
+}
+
+const updateNFT = async (req: any, res: any) => {
+    if (!req.body.nftId)
+        return res.status(400).send("Please put nftId in request body.");
+    const nft: any = await NFT.findByPk(req.body.nftId)
+    if (!nft)
+        return res.status(404).send("NFT with id = " + req.body.nftId + " not found.");
+    if (req.body.status)
+        nft.status = req.body.status
+    nft.save();
+    return res.status(200).send(`new nft rate: ${nft.rate}`)
+
 }
 
 
-export { addNFT, sellNFT, rateNFT };
+export { addNFT, sellNFT, rateNFT, updateNFT };
