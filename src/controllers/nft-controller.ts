@@ -70,7 +70,7 @@ const sellNFT = async (req: any, res: any) => {
     buyerTeam.balance -= nft.price;
     buyer.save();
 
-    seller.balance += nft.price;
+    sellerTeam.balance += nft.price;
     seller.save();
 };
 
