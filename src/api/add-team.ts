@@ -1,9 +1,9 @@
 import express from "express";
-import { addTeam } from "../controllers/team-controller";
+import { createTeam } from "../controllers/team-controller";
 import { checkTokenMiddleware } from "../services/authorization";
 
 const router = express.Router();
 
-router.post('/team', checkTokenMiddleware, addTeam);
+router.post('/team', checkTokenMiddleware, createTeam);
 
 module.exports = router;

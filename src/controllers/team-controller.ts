@@ -1,13 +1,14 @@
 import { User, Team } from "../sequelize/sequelize";
+import { extractToken } from "../services/authorization";
 
-const addTeam = async (req: any, res: any) => {
+const createTeam = async (req: any, res: any) => {
     var team = {
         name: req.body.name
     }
 
     console.log(req.body);
-    var userId = req.get('Authorization');
-    console.log("userId: " + userId);
+    const token = extractToken(req.headers.authorization);
+    console.log("userId: " + token.id);
 
     // check if user exists ??? 
 
@@ -16,7 +17,7 @@ const addTeam = async (req: any, res: any) => {
         console.log("Team created:" + JSON.stringify(createdTeam));
         User.update(
             { TeamId: createdTeam.id },
-            { where: { id: userId } }
+            { where: { id: token.id } }
         );
         return res.status(200).send(createdTeam);
     })
@@ -26,6 +27,8 @@ const addTeam = async (req: any, res: any) => {
         return res.status(400).send("Problem in request");
     });
 }
+
+
 
 // request: l'id du user qu'on veut ajouter
 const addToTeam = async (req: any, res: any) => {
@@ -44,11 +47,11 @@ const addToTeam = async (req: any, res: any) => {
     });
 
     // Authorization
-    var userId = req.get('Authorization');
-    console.log("userId: " + userId);
+    const token = extractToken(req.headers.authorization);
+    console.log("userId: " + token.id);
 
     // Check if the user has a team: if yes then add the added user to the team
-    await User.findByPk(userId)
+    await User.findByPk(token.id)
     .then(async (user: any) => {
         if (!user.TeamId) {
             return res.status(400).send("You have to be in a team to add a user to your team");
@@ -61,4 +64,4 @@ const addToTeam = async (req: any, res: any) => {
 
 }
 
-export { addTeam, addToTeam };
+export { createTeam, addToTeam };

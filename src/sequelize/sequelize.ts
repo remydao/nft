@@ -33,7 +33,7 @@ NFT.belongsTo(Collection, {
 NFT.hasOne(User, { as: "owner" });
 
 
-// Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
+// TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
   .then(() => {
     console.log(`Database & tables created!`)

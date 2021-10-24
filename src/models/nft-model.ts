@@ -32,6 +32,10 @@ const nftModel =
                 key: "id"
             }
         },
+        numberOfRate: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
     };
 
 
