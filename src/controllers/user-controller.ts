@@ -5,7 +5,7 @@ import {extractToken} from "../services/authorization";
 
 const addUserAdmin = async (req: any, res: any) => {
     var randomString = Math.random().toString(36).slice(-8);
-    if (!req.body.adress || !req.body.name || req.body.email || !req.body.role)
+    if (!req.body.address || !req.body.name || !req.body.email || !req.body.role)
         return res.status(400).send("specify all the field in the body")
     var user = {
         role: req.body.role,
@@ -29,10 +29,10 @@ const addUserAdmin = async (req: any, res: any) => {
 }
 
 const addUser = async (req: any, res: any) => {
-    var randomString = Math.random().toString(36).slice(-8);
-    if (!req.body.adress || !req.body.name || req.body.email)
+    const randomString = Math.random().toString(36).slice(-8);
+    if (!req.body.address || !req.body.name || !req.body.email)
         return res.status(400).send("specify all the field in the body")
-    var user = {
+    const user = {
         role: "user",
         address: req.body.address,
         name: req.body.name,
@@ -40,15 +40,12 @@ const addUser = async (req: any, res: any) => {
         password: randomString
     }
 
-    //await Team.create(team).then(async () => {
         await User.create(user)
         .then((user: any) => {
             logRegistration(user);
             return res.status(200).send(user);
         })
         .catch((err: any) => {
-            // have to implement error handler
-            console.log(err);
             return res.status(400).send("Problem in request");
         });
     //});
@@ -77,16 +74,15 @@ const updateUserRole = async (req: any, res: any) => {
 }
 
 const deleteUser = async (req: any, res: any) => {
-    const token = extractToken(req.headers.authorization)
     if (!req.params.userId && typeof req.params.userId === 'number')
         return res.status(400).send("specify the good param for the query")
-    const result = await User.destroy({
+    await User.destroy({
         where : {
             id: req.params.userId
         }
     })
     .catch((err: any) => {
-        return res.status(400).send("Probleme with the database")
+        return res.status(400).send("Problem with the database")
     })
     return res.status(200).json(`User with id ${req.params.userId} has been deleted`)
 
