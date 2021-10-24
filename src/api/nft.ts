@@ -9,7 +9,7 @@ router.post('/admin/add-nft', checkAdminTokenMiddleware, addNFT);
 
 router.put('/sell-nft', checkTokenMiddleware, sellNFT);
 
-router.put('/rate-nft/', checkTokenMiddleware, rateNFT);
+router.put('/rate-nft', checkTokenMiddleware, rateNFT);
 
 router.put('/update-nft', checkTokenMiddleware, updateNFT)
 

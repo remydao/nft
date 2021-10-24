@@ -30,7 +30,6 @@ const addToTeam = async (req: any, res: any) => {
         return res.status(400).send("You must have a userId in the body request: id of the user you want to add to your team");
     }
 
-    // Check if the added user exists and if he already belongs to a team
     await User.findByPk(req.body.userId)
     .then((user: any) => {
         if (!user) {
@@ -43,11 +42,8 @@ const addToTeam = async (req: any, res: any) => {
         return res.status(400).send('Problem with the database');
     });
 
-    // Authorization
     const token = extractToken(req.headers.authorization);
-    console.log("userId: " + token.id);
 
-    // Check if the user has a team: if yes then add the added user to the team
     await User.findByPk(token.id)
     .then(async (user: any) => {
         if (!user.TeamId) {

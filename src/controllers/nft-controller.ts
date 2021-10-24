@@ -103,7 +103,7 @@ const updateNFT = async (req: any, res: any) => {
     if (req.body.status)
         nft.status = req.body.status
     nft.save();
-    return res.status(200).send(`new nft rate: ${nft.rate}`)
+    return res.status(200).send(`new nft status: ${nft.status}`)
 
 }
 
