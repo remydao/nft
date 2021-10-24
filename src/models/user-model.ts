@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import {Collection, Team} from "../sequelize/sequelize";
 
 const userModel = 
     {
