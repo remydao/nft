@@ -2,15 +2,12 @@ import { User, Team } from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 
 const createTeam = async (req: any, res: any) => {
-    var team = {
+    if (!req.body.name)
+        return res.status(400).send('Make sure you added the good field in the body.')
+    const team = {
         name: req.body.name
     }
-
-    console.log(req.body);
     const token = extractToken(req.headers.authorization);
-    console.log("userId: " + token.id);
-
-    // check if user exists ??? 
 
     await Team.create(team)
     .then((createdTeam: any) => {
@@ -22,13 +19,10 @@ const createTeam = async (req: any, res: any) => {
         return res.status(200).send(createdTeam);
     })
     .catch((err: any) => {
-        // have to implement error handler
         console.log(err);
         return res.status(400).send("Problem in request");
     });
 }
-
-
 
 // request: l'id du user qu'on veut ajouter
 const addToTeam = async (req: any, res: any) => {
@@ -44,6 +38,9 @@ const addToTeam = async (req: any, res: any) => {
         } else if (user.TeamId != null) {
             return res.status(400).send("The user you try to add to your team already belongs to a team which id is: " + user.TeamId);
         }
+    })
+    .catch((err: any) => {
+        return res.status(400).send('Problem with the database');
     });
 
     // Authorization
@@ -60,7 +57,11 @@ const addToTeam = async (req: any, res: any) => {
             { TeamId: user.TeamId },
             { where: { id: req.body.userId } }
         ).then((addedUser) => {return res.status(200).send(addedUser)});
+    })
+    .catch((err: any) => {
+        return res.status(400).send('Problem with the database');
     });
+
 
 }
 
