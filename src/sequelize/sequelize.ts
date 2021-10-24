@@ -26,8 +26,10 @@ User.belongsTo(Team, {
 
 Collection.hasMany(NFT, { as: "NFTs"});
 
-NFT.hasMany(User, { as: "owners" });
-
+NFT.belongsTo(User, {
+    foreignKey: "UserId",
+    as: "user"
+});
 
 // TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })

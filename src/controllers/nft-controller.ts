@@ -3,9 +3,8 @@ import { extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
 
 const addNFT = async (req: any, res: any) => {
-    // Check body
-    if (!req.body.name || !req.body.price || !req.body.status)
-        return res.status(400).send("Please put name, price and status in request body.");
+    if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId)
+        return res.status(400).send("Please put name, price, userId and status in request body.");
     
     try {
         const token = extractToken(req.headers.authorization);
@@ -16,10 +15,13 @@ const addNFT = async (req: any, res: any) => {
             name: req.body.name,
             price: req.body.price,
             status: req.body.status,
+            rate: 0,
+            numberOfRate: 0,
+            UserId: req.body.userId
         };
         
         await NFT.create(nft)
-        .then((nft: any) => 
+        .then((nft: any) =>
         {
             console.log("NFT created:" + JSON.stringify(nft));
             return res.status(200).send("OK");
@@ -102,10 +104,10 @@ const updateNFT = async (req: any, res: any) => {
         return res.status(404).send("NFT with id = " + req.body.nftId + " not found.");
     if (req.body.status)
         nft.status = req.body.status
+    if (req.body.collectionId)
+        nft.CollectionId = req.body.collectionId
     nft.save();
-    return res.status(200).send(`new nft status: ${nft.status}`)
-
+    return res.status(200).send(`new nft status: ${nft.status} and collectionId : ${nft.CollectionId}`)
 }
-
 
 export { addNFT, sellNFT, rateNFT, updateNFT };

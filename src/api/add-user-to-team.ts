@@ -4,6 +4,6 @@ import { checkTokenMiddleware } from "../services/authorization";
 
 const router = express.Router();
 
-router.put('/addToTeam', checkTokenMiddleware, addToTeam);
+router.post('/addToTeam', checkTokenMiddleware, addToTeam);
 
 module.exports = router;
