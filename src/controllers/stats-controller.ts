@@ -2,7 +2,23 @@ import {User, Team, NFT, History, Collection} from "../sequelize/sequelize";
 import {Sequelize} from "sequelize";
 import { extractToken} from "../services/authorization";
 
+//TODO get bestSellers but not the teams. Need to be change
 const getBestSellerTeams = async (req: any, res: any) => {
+    await History.findAll({
+            attributes: [
+                [Sequelize.fn('COUNT', Sequelize.col('sellerId')), 'sellers']
+            ],
+            group: ['sellerId']
+        })
+        .then(async (sellers: any) => {
+            if (sellers === null || sellers.length < 1)
+                return res.status(400).send("No sales history");
+            return res.status(200).json({ content: sellers })
+        })
+        .catch((err: any) => {
+            console.log(err);
+            return res.status(400).send("error on dataBase")
+        })
 }
 
 const getBestSellerCollections = async (req: any, res: any) => {
