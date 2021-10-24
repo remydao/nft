@@ -12,7 +12,7 @@ const addNFT = async (req: any, res: any) => {
         if (token.role !== "admin")
             return res.status(403).send("You are not admin");
 
-        var nft = {
+        const nft = {
             name: req.body.name,
             price: req.body.price,
             status: req.body.status,
@@ -56,14 +56,14 @@ const sellNFT = async (req: any, res: any) => {
     if (!buyer)
         return res.status(404).send("Buyer with id = " + req.body.buyerId + " not found.");
 
-    var buyerTeam: any = buyer.team;
+    const buyerTeam: any = buyer.team;
     if (!buyerTeam)
         return res.status(404).send("Buyer with id = " + req.body.buyerId + " is not in a team.");
 
     if (buyerTeam.balance < nft.price)
         return res.status(403).send("Buyer with id = " + req.body.buyerId + " hasn't got enough money.");
 
-    var sellerTeam = seller.team
+    const sellerTeam = seller.team
     if (!sellerTeam)
         return res.status(404).send("Seller with id = " + seller.id + " is not in a team.");
 
