@@ -5,7 +5,7 @@ import {extractToken} from "../services/authorization";
 
 const addUserAdmin = async (req: any, res: any) => {
     var randomString = Math.random().toString(36).slice(-8);
-    if (!req.body.adress || !req.body.name || !req.body.email || !req.body.role)
+    if (!req.body.address || !req.body.name || !req.body.email || !req.body.role)
         return res.status(400).send("specify all the field in the body")
     var user = {
         role: req.body.role,
@@ -30,7 +30,7 @@ const addUserAdmin = async (req: any, res: any) => {
 
 const addUser = async (req: any, res: any) => {
     const randomString = Math.random().toString(36).slice(-8);
-    if (!req.body.adress || !req.body.name || !req.body.email)
+    if (!req.body.address || !req.body.name || !req.body.email)
         return res.status(400).send("specify all the field in the body")
     const user = {
         role: "user",

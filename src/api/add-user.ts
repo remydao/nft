@@ -5,6 +5,8 @@ import {checkAdminTokenMiddleware} from "../services/authorization";
 const router = express.Router();
 
 router.post('/user', addUser);
-router.post('/admin/user', checkAdminTokenMiddleware, addUserAdmin)
+//TODO
+//router.post('/admin/user', checkAdminTokenMiddleware, addUserAdmin)
+router.post('/admin/user', addUserAdmin)
 
 module.exports = router;
