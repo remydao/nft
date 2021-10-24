@@ -3,8 +3,8 @@ import { extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
 
 const addNFT = async (req: any, res: any) => {
-    if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId)
-        return res.status(400).send("Please put name, price, userId and status in request body.");
+    if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId || !req.body.collectionId)
+        return res.status(400).send("Please put name, price, userId, status and collectionId in request body.");
     
     try {
         const token = extractToken(req.headers.authorization);
@@ -17,7 +17,8 @@ const addNFT = async (req: any, res: any) => {
             status: req.body.status,
             rate: 0,
             numberOfRate: 0,
-            UserId: req.body.userId
+            UserId: req.body.userId,
+            CollectionId: req.body.collectionId
         };
         
         await NFT.create(nft)

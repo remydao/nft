@@ -15,10 +15,6 @@ const historyModel = {
         type: DataTypes.BIGINT,
         allowNull: false,
     },
-    NFTId: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-    },
     date: {
         type: DataTypes.DATE,
         allowNull: false,

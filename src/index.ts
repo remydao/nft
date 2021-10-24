@@ -20,6 +20,8 @@ app.use(require('./api/authorization'))
 app.use(require('./api/change-user-role'))
 app.use(require('./api/add-user-to-team'));
 app.use(require('./api/delete-user'))
+app.use(require('./api/add-history'))
+app.use(require('./api/add-collection'))
 
 const port: number = 3000;
 app.listen(port, function () {

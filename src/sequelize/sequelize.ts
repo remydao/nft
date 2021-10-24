@@ -15,7 +15,7 @@ const User = sequelize.define('User', userModel);
 const Team = sequelize.define('Team', teamModel);
 const NFT = sequelize.define('NFT', nftModel);
 const Collection = sequelize.define('Collection', collectionModel);
-const History = sequelize.define('ownerHistory', historyModel)
+const History = sequelize.define('History', historyModel)
 
 // Foreign keys
 Team.hasMany(User, { as: "users" });
@@ -25,11 +25,14 @@ User.belongsTo(Team, {
 });
 
 Collection.hasMany(NFT, { as: "NFTs"});
-
+NFT.belongsTo(Collection)
 NFT.belongsTo(User, {
     foreignKey: "UserId",
     as: "user"
 });
+
+NFT.hasMany(History)
+History.belongsTo(NFT)
 
 // TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
