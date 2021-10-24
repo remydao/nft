@@ -1,28 +1,27 @@
-import {NFT, Team, User, History, Collection} from "../sequelize/sequelize";
+import { NFT, Team, User } from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
-import {DataTypes} from "sequelize";
 
 const addNFT = async (req: any, res: any) => {
-    // Check body
-    if (!req.body.name || !req.body.price || !req.body.status)
-        return res.status(400).send("Please put name, price and status in request body.");
+    if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId)
+        return res.status(400).send("Please put name, price, userId and status in request body.");
     
     try {
         const token = extractToken(req.headers.authorization);
         if (token.role !== "admin")
             return res.status(403).send("You are not admin");
 
-        var nft = {
+        const nft = {
             name: req.body.name,
             price: req.body.price,
             status: req.body.status,
             rate: 0,
-            numberOfRate: 0
+            numberOfRate: 0,
+            UserId: req.body.userId
         };
         
         await NFT.create(nft)
-        .then((nft: any) => 
+        .then((nft: any) =>
         {
             console.log("NFT created:" + JSON.stringify(nft));
             return res.status(200).send("OK");
@@ -59,14 +58,14 @@ const sellNFT = async (req: any, res: any) => {
     if (!buyer)
         return res.status(404).send("Buyer with id = " + req.body.buyerId + " not found.");
 
-    var buyerTeam: any = buyer.team;
+    const buyerTeam: any = buyer.team;
     if (!buyerTeam)
         return res.status(404).send("Buyer with id = " + req.body.buyerId + " is not in a team.");
 
     if (buyerTeam.balance < nft.price)
         return res.status(403).send("Buyer with id = " + req.body.buyerId + " hasn't got enough money.");
 
-    var sellerTeam = seller.team
+    const sellerTeam = seller.team
     if (!sellerTeam)
         return res.status(404).send("Seller with id = " + seller.id + " is not in a team.");
 
@@ -75,22 +74,6 @@ const sellNFT = async (req: any, res: any) => {
 
     sellerTeam.balance += nft.price;
     seller.save();
-
-    var history = {
-        buyerId: buyerTeam.id,
-        NFTId: req.body.nftId,
-        CollectionId: nft.collectionId
-    }
-    await History.create(history)
-        .then((history: any) =>
-        {
-            console.log("history created:" + JSON.stringify(history));
-            return res.status(200).send("OK");
-        })
-        .catch((err: any) => {
-            console.log(err);
-            return res.status(400).send("error on db");
-        })
 };
 
 
@@ -121,10 +104,10 @@ const updateNFT = async (req: any, res: any) => {
         return res.status(404).send("NFT with id = " + req.body.nftId + " not found.");
     if (req.body.status)
         nft.status = req.body.status
+    if (req.body.collectionId)
+        nft.CollectionId = req.body.collectionId
     nft.save();
-    return res.status(200).send(`new nft status: ${nft.status}`)
-
+    return res.status(200).send(`new nft status: ${nft.status} and collectionId : ${nft.CollectionId}`)
 }
-
 
 export { addNFT, sellNFT, rateNFT, updateNFT };

@@ -4,10 +4,10 @@ import {extractToken} from "../services/authorization";
 
 
 const addUserAdmin = async (req: any, res: any) => {
-    var randomString = Math.random().toString(36).slice(-8);
+    const randomString = Math.random().toString(36).slice(-8);
     if (!req.body.address || !req.body.name || !req.body.email || !req.body.role)
         return res.status(400).send("specify all the field in the body")
-    var user = {
+    const user = {
         role: req.body.role,
         address: req.body.address,
         name: req.body.name,

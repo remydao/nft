@@ -20,18 +20,16 @@ const History = sequelize.define('ownerHistory', historyModel)
 // Foreign keys
 Team.hasMany(User, { as: "users" });
 User.belongsTo(Team, {
-  foreignKey: "teamId",
+  foreignKey: "TeamId",
   as: "team",
 });
 
 Collection.hasMany(NFT, { as: "NFTs"});
-NFT.belongsTo(Collection, {
-    foreignKey: "collectionId",
-    as: "collection",
+
+NFT.belongsTo(User, {
+    foreignKey: "UserId",
+    as: "user"
 });
-
-//NFT.hasOne(User, { as: "owner" });
-
 
 // TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
