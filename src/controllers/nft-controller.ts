@@ -17,6 +17,8 @@ const addNFT = async (req: any, res: any) => {
             name: req.body.name,
             price: req.body.price,
             status: req.body.status,
+            rate: 0,
+            numberOfRate: 0
         };
         
         await NFT.create(nft)
@@ -84,6 +86,10 @@ const sellNFT = async (req: any, res: any) => {
         {
             console.log("history created:" + JSON.stringify(history));
             return res.status(200).send("OK");
+        })
+        .catch((err: any) => {
+            console.log(err);
+            return res.status(400).send("error on db");
         })
 };
 

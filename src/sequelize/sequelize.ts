@@ -20,7 +20,7 @@ const History = sequelize.define('ownerHistory', historyModel)
 // Foreign keys
 Team.hasMany(User, { as: "users" });
 User.belongsTo(Team, {
-  foreignKey: "TeamId",
+  foreignKey: "teamId",
   as: "team",
 });
 
@@ -30,7 +30,7 @@ NFT.belongsTo(Collection, {
     as: "collection",
 });
 
-NFT.hasOne(User, { as: "owner" });
+//NFT.hasOne(User, { as: "owner" });
 
 
 // TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP

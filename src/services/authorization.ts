@@ -72,6 +72,7 @@ const getLogin = async (req: any, res: any) => {
         return res.json({ access_token: token })
     }
     catch (err) {
+        console.log(err);
         return res.status(400).json({ message: 'Error. Can\'t access to database' })
     }
 }

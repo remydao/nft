@@ -35,14 +35,6 @@ const userModel =
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        teamId: {
-            type: DataTypes.BIGINT,
-            allowNull: true,
-            references: {
-                model: Team,
-                key: "id"
-            }
         }
     };
 
