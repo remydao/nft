@@ -2,18 +2,41 @@ import {User, Team, NFT, History, Collection} from "../sequelize/sequelize";
 import {Sequelize} from "sequelize";
 import { extractToken} from "../services/authorization";
 
+
+
+const getPagination = (page: any, size: any) => {
+    const limit = size ? +size : 3;
+    const offset = page ? page * limit : 0;
+
+    return { limit, offset };
+};
+
+const getPagingData = (data: any, page: any, limit: any) => {
+    const totalItems = data.length;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return { totalItems, data, totalPages, currentPage };
+};
+
+
 //TODO get bestSellers but not the teams. Need to be change
 const getBestSellerTeams = async (req: any, res: any) => {
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size);
     await History.findAll({
             attributes: [
                 [Sequelize.fn('COUNT', Sequelize.col('sellerId')), 'sellers']
             ],
-            group: ['sellerId']
+            group: ['sellerId'],
+            limit: limit,
+            offset: offset
         })
         .then(async (sellers: any) => {
             if (sellers === null || sellers.length < 1)
                 return res.status(400).send("No sales history");
-            return res.status(200).json({ content: sellers })
+            const response = getPagingData(sellers, page, limit);
+            return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err);
@@ -22,18 +45,25 @@ const getBestSellerTeams = async (req: any, res: any) => {
 }
 
 const getBestSellerCollections = async (req: any, res: any) => {
+
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size);
+
     await History.findAll({
             include: "NFT",
             attributes: [
                 [Sequelize.fn('COUNT', Sequelize.col('NFT.collectionId')), 'Collections']
             ],
-            group: ['NFT.collectionId']
+            group: ['NFT.collectionId'],
+            limit: limit,
+            offset: offset
 
         })
         .then(async (Collections: any) => {
             if (Collections === null || Collections.length < 1)
                 return res.status(400).send("No History of Collection sales");
-            return res.status(200).json({content: Collections})
+            const response = getPagingData(Collections, page, limit);
+            return res.status(200).json({content: response})
         })
         .catch((err:any) => {
             console.log(err);
@@ -42,13 +72,22 @@ const getBestSellerCollections = async (req: any, res: any) => {
 }
 
 const getMostRatedNFTs = async (req: any, res: any) => {
+
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size);
+
     await NFT.findAll({
-        order:[['rate', 'DESC']]
+        order:[['rate', 'DESC']],
+        limit: limit,
+        offset: offset
         })
         .then(async  (NFTs: any) => {
-            if (NFTs === null || NFTs.length < 1)
+            if (NFTs === null || NFTs.length < 1) {
+                console.log(`${limit}, ${offset}`)
                 return res.status(400).send("No NFTs");
-            return res.status(200).json({content: NFTs})
+            }
+            const response = getPagingData(NFTs, page, limit);
+            return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             // have to implement error handler
@@ -58,14 +97,20 @@ const getMostRatedNFTs = async (req: any, res: any) => {
 }
 
 const getLastSells = async (req: any, res: any) => {
+
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size);
     await History.findAll({
         order: [['date', 'DESC']],
-        raw: true
+        raw: true,
+        limit: limit,
+        offset: offset
         })
         .then(async (lastSells: any) => {
             if (lastSells.length < 1)
                 return res.status(400).send("No sells");
-            return res.status(200).json({content: lastSells})
+            const response = getPagingData(lastSells, page, limit);
+            return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err)
@@ -74,16 +119,22 @@ const getLastSells = async (req: any, res: any) => {
 }
 
 const getOwnSells = async (req: any, res: any) => {
+
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size);
     const ownerId = extractToken(req.headers.authorization).id;
     await History.findAll( {
-        where: {
-            sellerId: ownerId
-        }
+            where: {
+                sellerId: ownerId
+            },
+            limit: limit,
+            offset: offset
         })
         .then(async (ownSells: any) => {
             if (ownSells.length < 1)
                 return res.status(400).send("You don't have any sells")
-            return res.status(200).json({content: ownSells})
+            const response = getPagingData(ownSells, page, limit);
+            return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err)
