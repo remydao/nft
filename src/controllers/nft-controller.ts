@@ -1,4 +1,4 @@
-import { NFT, Team, User } from "../sequelize/sequelize";
+import {History, NFT, Team, User} from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 import { handleValidationError } from "../utils/error-handler";
 
@@ -59,14 +59,14 @@ const sellNFT = async (req: any, res: any) => {
     if (!buyer)
         return res.status(404).send("Buyer with id = " + req.body.buyerId + " not found.");
 
-    const buyerTeam: any = buyer.team;
+    const buyerTeam: any = await Team.findByPk(buyer.TeamId);
     if (!buyerTeam)
         return res.status(404).send("Buyer with id = " + req.body.buyerId + " is not in a team.");
 
     if (buyerTeam.balance < nft.price)
         return res.status(403).send("Buyer with id = " + req.body.buyerId + " hasn't got enough money.");
 
-    const sellerTeam = seller.team
+    const sellerTeam: any = await Team.findByPk(seller.TeamId);
     if (!sellerTeam)
         return res.status(404).send("Seller with id = " + seller.id + " is not in a team.");
 
@@ -75,6 +75,21 @@ const sellNFT = async (req: any, res: any) => {
 
     sellerTeam.balance += nft.price;
     seller.save();
+
+    const history = {
+        buyerId: buyer.id,
+        sellerId: seller.id,
+        NFTId: nft.id,
+        date: Date.now()
+    };
+
+    await History.create(history)
+        .then((nft: any) =>
+        {
+            console.log("history created:" + JSON.stringify(nft));
+            return res.status(200).send("OK");
+        });
+
 };
 
 

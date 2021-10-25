@@ -5,7 +5,8 @@ const createTeam = async (req: any, res: any) => {
     if (!req.body.name)
         return res.status(400).send('Make sure you added the good field in the body.')
     const team = {
-        name: req.body.name
+        name: req.body.name,
+        balance: 1000
     }
     const token = extractToken(req.headers.authorization);
 
