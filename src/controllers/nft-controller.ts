@@ -125,5 +125,4 @@ const updateNFT = async (req: any, res: any) => {
     nft.save();
     return res.status(200).send(`new nft status: ${nft.status} and collectionId : ${nft.CollectionId}`)
 }
-
 export { addNFT, sellNFT, rateNFT, updateNFT };

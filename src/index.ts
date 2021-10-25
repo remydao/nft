@@ -22,6 +22,7 @@ app.use(require('./api/add-user-to-team'));
 app.use(require('./api/delete-user'))
 app.use(require('./api/add-history'))
 app.use(require('./api/add-collection'))
+app.use(require('./api/get-user'))
 
 const port: number = 3000;
 app.listen(port, function () {

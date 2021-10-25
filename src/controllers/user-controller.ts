@@ -2,6 +2,15 @@ import { logRegistration } from "../utils/logging";
 import { User, Team } from "../sequelize/sequelize";
 import {extractToken} from "../services/authorization";
 
+const getUser = async (req:any, res:any) => {
+    await User.findAll()
+        .then((users: any) => {
+            res.status(200).json(users);
+        })
+        .catch((err: any) => {
+            res.status(400).send("Problem with the database")
+        })
+}
 
 const addUserAdmin = async (req: any, res: any) => {
     const randomString = Math.random().toString(36).slice(-8);
@@ -65,7 +74,7 @@ const updateUserRole = async (req: any, res: any) => {
         if (users.length === 1 && req.params.userId === token.id && req.body.role === "user")// ne peut pas delete le dernier admin + check sur le req
             return res.status(400).send("You can't delete the last admin of the API.")
         const result = await User.update({role: req.body.role}, {where: {id: req.params.userId}})
-        return res.status(200).json({content: result})
+        return res.status(200).json({content: `User role from user ${req.params.userId} has been changed to ${req.body.role}`})
     })
     .catch((err: any) => {
         console.log(err)
@@ -88,4 +97,4 @@ const deleteUser = async (req: any, res: any) => {
 
 }
 
-export { addUser, updateUserRole, addUserAdmin, deleteUser };
+export { addUser, updateUserRole, addUserAdmin, deleteUser, getUser };
