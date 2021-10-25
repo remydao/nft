@@ -38,6 +38,9 @@ const getBestSellerTeams = async (req: any, res: any) => {
             if (sellers === null || sellers.length < 1)
                 return res.status(400).send("No sales history");
             const response = getPagingData(sellers, page, limit);
+            response.data.sort(function(a: any, b: any) {
+                return a['Sales'] - b['Sales'];
+            });
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
