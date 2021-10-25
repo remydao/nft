@@ -1,4 +1,4 @@
-import { User, Team } from "../sequelize/sequelize";
+import {User, Team, Collection} from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 
 const createTeam = async (req: any, res: any) => {
@@ -62,4 +62,14 @@ const addToTeam = async (req: any, res: any) => {
 
 }
 
-export { createTeam, addToTeam };
+const getTeam = async (req: any, res: any) => {
+    await Team.findAll()
+        .then((teams: any) => {
+            return res.status(200).json(teams)
+        })
+        .catch((err: any) => {
+            res.status(400).send("Problem with the database")
+        })
+}
+
+export { createTeam, addToTeam, getTeam };

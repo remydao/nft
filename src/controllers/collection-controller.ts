@@ -23,4 +23,14 @@ const addCollection = async (req: any, res: any) => {
         console.log(err);
     }
 }
-export { addCollection };
+
+const getCollection = async (req: any, res: any) => {
+    await Collection.findAll()
+        .then((collections: any) => {
+            return res.status(200).json(collections)
+        })
+        .catch((err: any) => {
+            return res.status(400).send("Problem with the database")
+        })
+}
+export { addCollection, getCollection };

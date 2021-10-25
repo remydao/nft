@@ -67,7 +67,7 @@ const getLogin = async (req: any, res: any) => {
             id : user.id,
             name: user.name,
             role: user.role
-        }, process.env.TOKEN_SECRET)//TODO, { expiresIn: '1800s' })
+        }, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
 
         return res.json({ access_token: token })
     }

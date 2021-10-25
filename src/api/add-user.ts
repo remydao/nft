@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/user', addUser);
 //TODO
-//router.post('/admin/user', checkAdminTokenMiddleware, addUserAdmin)
+//router.post('/admin/user', checkAdminTokenMiddleware, addUserAdmin) the real route
 router.post('/admin/user', addUserAdmin)
 
 module.exports = router;
