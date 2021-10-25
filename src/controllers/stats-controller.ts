@@ -25,10 +25,12 @@ const getBestSellerTeams = async (req: any, res: any) => {
     const { page, size} = req.query;
     const { limit, offset } = getPagination(page, size);
     await History.findAll({
+            include: "seller",
             attributes: [
-                [Sequelize.fn('COUNT', Sequelize.col('sellerId')), 'sellers']
+                'seller.TeamId',
+                [Sequelize.fn('COUNT', Sequelize.col('seller.TeamId')), 'Sales']
             ],
-            group: ['sellerId'],
+            group: ['seller.TeamId'],
             limit: limit,
             offset: offset
         })
@@ -52,7 +54,7 @@ const getBestSellerCollections = async (req: any, res: any) => {
     await History.findAll({
             include: "NFT",
             attributes: [
-                [Sequelize.fn('COUNT', Sequelize.col('NFT.collectionId')), 'Collections']
+                [Sequelize.fn('COUNT', Sequelize.col('NFT.collectionId')), 'NumberNftSold']
             ],
             group: ['NFT.collectionId'],
             limit: limit,
@@ -63,6 +65,9 @@ const getBestSellerCollections = async (req: any, res: any) => {
             if (Collections === null || Collections.length < 1)
                 return res.status(400).send("No History of Collection sales");
             const response = getPagingData(Collections, page, limit);
+            response.data.sort(function(a: any, b: any) {
+                return a['NumberNftSold'] - b['NumberNftSold'];
+            });
             return res.status(200).json({content: response})
         })
         .catch((err:any) => {

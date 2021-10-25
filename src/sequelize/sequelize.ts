@@ -33,6 +33,14 @@ NFT.belongsTo(User, {
 
 NFT.hasMany(History)
 History.belongsTo(NFT)
+History.belongsTo(User, {
+    foreignKey: "buyerId",
+    as: "buyer"
+})
+History.belongsTo(User, {
+    foreignKey: "sellerId",
+    as: "seller"
+})
 
 // TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
 sequelize.sync({ force: true })
