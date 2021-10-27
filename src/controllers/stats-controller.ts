@@ -81,7 +81,7 @@ const getBestSellerCollections = async (req: any, res: any) => {
 
 const getMostRatedNFTs = async (req: any, res: any) => {
 
-    const { page, size} = req.query;
+    const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
 
     await NFT.findAll({
@@ -98,7 +98,6 @@ const getMostRatedNFTs = async (req: any, res: any) => {
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
-            // have to implement error handler
             console.log(err);
             return res.status(400).send("Error on dataBase");
         });

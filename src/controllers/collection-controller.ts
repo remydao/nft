@@ -1,11 +1,11 @@
-import {Collection} from "../sequelize/sequelize"
+import { Collection } from "../sequelize/sequelize"
+import { handleSpecificError } from "../utils/error-handler";
 
 const addCollection = async (req: any, res: any) => {
-    if (!req.body.name|| !req.body.logo || !req.body.status)
-        return res.status(400).send("Please put name, logo and status in request body.");
+    if (!req.body.name || !req.body.logo || !req.body.status)
+        return handleSpecificError(res, 400, "Please put name, logo and status in request body.");
 
     try {
-
         const collection = {
             name: req.body.name,
             logo: req.body.logo,
@@ -13,9 +13,9 @@ const addCollection = async (req: any, res: any) => {
         };
 
         await Collection.create(collection)
-            .then((nft: any) =>
+            .then((collection: any) =>
             {
-                console.log("Collection created:" + JSON.stringify(nft));
+                console.log("[DEV] Collection created: " + collection.name + " (id = " + collection.id + ")");
                 return res.status(200).send("OK");
             })
     }
@@ -30,7 +30,7 @@ const getCollection = async (req: any, res: any) => {
             return res.status(200).json(collections)
         })
         .catch((err: any) => {
-            return res.status(400).send("Problem with the database")
+            return handleSpecificError(res, 400, "Problem with the database");
         })
 }
 export { addCollection, getCollection };

@@ -7,14 +7,6 @@ const historyModel = {
         primaryKey: true,
         autoIncrement: true
     },
-/*    buyerId: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-    },
-    sellerId: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-    },*/
     date: {
         type: DataTypes.DATE,
         allowNull: false,

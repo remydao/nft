@@ -1,12 +1,12 @@
-import {History, NFT} from "../sequelize/sequelize";
+import { History } from "../sequelize/sequelize";
+import { handleSpecificError, handleUnknownError, handleValidationError } from "../utils/error-handler";
 
 
 const addHistory = async (req: any, res: any) => {
     if (!req.body.buyerId|| !req.body.sellerId || !req.body.NFTId)
-        return res.status(400).send("Please put buyerId, sellerId and NFTId in request body.");
+        return handleSpecificError(res, 400, "Please put buyerId, sellerId and NFTId in request body.");
 
     try {
-
         const history = {
             buyerId: req.body.buyerId,
             sellerId: req.body.sellerId,
@@ -15,14 +15,18 @@ const addHistory = async (req: any, res: any) => {
         };
 
         await History.create(history)
-            .then((nft: any) =>
+            .then((history: any) =>
             {
-                console.log("history created:" + JSON.stringify(nft));
+                console.log("[DEV] History created: " + history.id);
                 return res.status(200).send("OK");
             })
     }
     catch (err: any) {
-        console.log(err);
+        if (err.name === "SequelizeValidationError")
+            handleValidationError(err, res);
+        else
+            handleUnknownError(res);
     }
 }
+
 export { addHistory };

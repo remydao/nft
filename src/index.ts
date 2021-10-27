@@ -2,10 +2,36 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from "swagger-jsdoc";
 
 const app = express();
-const swaggerDocument = require('../swagger.json')
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+const swaggerDefinition = {
+      openapi: "3.0.0",
+      info: {
+        title: "NFT API with Swagger",
+        version: "1.0.0",
+      },
+    };
+
+const options = {
+    swaggerDefinition,
+        apis: ['src/api/add-collection.ts',
+            'src/api/add-history.ts',
+            'src/api/add-team.ts',
+            'src/api/add-user-to-team.ts',
+            'src/api/add-user.ts',
+            'src/api/authorization.ts',
+            'src/api/change-user-role.ts',
+            'src/api/delete-user.ts',
+            'src/api/get-user.ts',
+            'src/api/nft.ts',
+            'src/api/stats.ts'],
+    };
+  
+const specs = swaggerJsdoc(options);
+
+app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(bodyParser.json());
 
 
@@ -26,5 +52,7 @@ app.use(require('./api/get-user'))
 
 const port: number = 3000;
 app.listen(port, function () {
-    console.log(`App is listening at http://localhost:${port}`);
+    console.log(`Starting app on port ${port}, please wait...`);
 });
+
+export { port };

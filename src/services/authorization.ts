@@ -1,4 +1,4 @@
-import {User} from "../sequelize/sequelize";
+import { User } from "../sequelize/sequelize";
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config(); // load env file
@@ -11,7 +11,7 @@ const extractBearerToken = (headerValue : any) => {
     return matches && matches[2]
 }
 
-//method to control admin user
+// method to control admin user
 const checkAdminTokenMiddleware = (req: any, res: any, next: any) => {
     const token = req.headers.authorization && extractBearerToken(req.headers.authorization)
 
@@ -49,7 +49,7 @@ const checkTokenMiddleware = (req: any, res: any, next: any) => {
     })
 }
 
-//login method
+// login method
 const getLogin = async (req: any, res: any) => {
     if (!req.body.email || !req.body.password)
         return res.status(400).json({message: 'Error. Please enter the correct username and password'})
