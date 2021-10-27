@@ -12,6 +12,19 @@ const swaggerDefinition = {
         title: "NFT API with Swagger",
         version: "1.0.0",
       },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+          },
+        },
+      },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
     };
 
 const options = {
