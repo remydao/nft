@@ -41,7 +41,7 @@ const addUser = async (req: any, res: any) => {
     const randomString = Math.random().toString(36).slice(-8);
 
     if (!req.body.address || !req.body.name || !req.body.email)
-    return handleSpecificError(res, 400, "Please specify all the field in the body: address, name, email")
+        return handleSpecificError(res, 400, "Please specify all the field in the body: address, name, email")
 
     const user = {
         role: "user",

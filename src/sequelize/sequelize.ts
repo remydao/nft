@@ -44,8 +44,8 @@ History.belongsTo(User, {
     as: "seller"
 })
 
-// TODO: Attention ENLEVER LE FORCE QUI ERASE LES TABLES A CHAQUE STARTUP
-sequelize.sync({ force: true })
+
+sequelize.sync()
   .then(() => {
     console.log('Database and tables created!')
     console.log(`App is listening at http://localhost:${port}`)

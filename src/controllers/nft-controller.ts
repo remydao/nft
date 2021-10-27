@@ -107,12 +107,12 @@ const rateNFT = async (req: any, res: any) => {
 
     const token = extractToken(req.headers.authorization);
     if (!token)
-        return res.status(403).send("You are not logged in");
+        return res.status(403).send("You are not logged in.");
 
     nft.rate = (nft.rate * nft.numberOfRate + req.body.rate) / (nft.numberOfRate + 1);
     nft.numberOfRate++;
     nft.save();
-    return res.status(200).send(`new nft rate: ${nft.rate}`)
+    return res.status(200).send(`New nft rate: ${nft.rate}`)
 }
 
 const updateNFT = async (req: any, res: any) => {
