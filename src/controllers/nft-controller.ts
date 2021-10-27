@@ -1,6 +1,7 @@
 import {History, NFT, Team, User} from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 import { handleSpecificError, handleUnknownError, handleValidationError } from "../utils/error-handler";
+import { logAction } from "../utils/logging";
 
 const addNFT = async (req: any, res: any) => {
     if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId || !req.body.collectionId)
@@ -86,9 +87,9 @@ const sellNFT = async (req: any, res: any) => {
     };
 
     await History.create(history)
-        .then((nft: any) =>
+        .then((history: any) =>
         {
-            console.log("[DEV] History created: " + JSON.stringify(nft));
+            logAction(buyer.name, seller.name, nft.id);
             return res.status(200).send("OK");
         });
 
