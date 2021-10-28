@@ -3,13 +3,13 @@ import { User } from "../sequelize/sequelize";
 import { extractToken } from "../services/authorization";
 import { handleSpecificError } from "../utils/error-handler";
 
-const getUser = async (req:any, res:any) => {
+const getUser = async (req: any, res: any) => {
     await User.findAll()
         .then((users: any) => {
-            res.status(200).json(users);
+            return res.status(200).json(users);
         })
         .catch((err: any) => {
-            handleSpecificError(res, 500, 'Problem with the database');
+            return handleSpecificError(res, 500, 'Problem with the database');
         })
 }
 
