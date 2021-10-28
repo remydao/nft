@@ -16,11 +16,11 @@ const handleValidationError = (err: ValidationError, res: any) => {
 
 const handleUnknownError = (res: any) => {
     const code = 500;
-    res.status(code).send({error: "An unknown error has occured. Please refer to the documentation or check the server availibility."});
+    res.status(code).send({ error: "An unknown error has occured. Please refer to the documentation or check the server availibility." });
 }
 
 const handleSpecificError = (res: any, code: number, message: string) => {
-    res.status(code).send({error: message});
+    res.status(code).send({ error: message });
 }
 
-export { handleValidationError, handleUnknownError, handleSpecificError};
+export { handleValidationError, handleUnknownError, handleSpecificError };

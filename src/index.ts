@@ -42,15 +42,18 @@ const options = {
             'src/api/stats.ts'],
     };
   
-const specs = swaggerJsdoc(options);
 
-app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
-app.use(bodyParser.json());
 
 
 app.use(cors())
-app.use(express.json())
 app.use(express.urlencoded({extended : true}))
+
+// Swagger
+const specs = swaggerJsdoc(options);
+app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
+
+app.use(express.json());
+
 app.use(require('./api/add-user'));
 app.use(require('./api/nft'));
 app.use(require('./api/stats'));

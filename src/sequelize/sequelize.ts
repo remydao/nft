@@ -9,7 +9,6 @@ import { port } from "../index"
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: './database.sqlite',
-    logging: false
 });
 
 // All models are defined here

@@ -17,7 +17,7 @@ const addUserAdmin = async (req: any, res: any) => {
     const randomString = Math.random().toString(36).slice(-8);
 
     if (!req.body.address || !req.body.name || !req.body.email || !req.body.role)
-        return handleSpecificError(res, 400, "Please specify all the field in the body: address, name, email, role")
+        return handleSpecificError(res, 400, "Please specify all the fields in the body: address, name, email, role")
 
     const user = {
         role: req.body.role,
@@ -30,7 +30,7 @@ const addUserAdmin = async (req: any, res: any) => {
     await User.create(user)
         .then((user: any) => {
             logRegistration(user);
-            return res.status(200).send(user);
+            return res.status(201).send(user);
         })
         .catch((err: any) => {
             return handleSpecificError(res, 400, "Problem in request");
@@ -39,6 +39,8 @@ const addUserAdmin = async (req: any, res: any) => {
 
 const addUser = async (req: any, res: any) => {
     const randomString = Math.random().toString(36).slice(-8);
+
+    console.log(req.body);
 
     if (!req.body.address || !req.body.name || !req.body.email)
         return handleSpecificError(res, 400, "Please specify all the field in the body: address, name, email")
@@ -54,10 +56,10 @@ const addUser = async (req: any, res: any) => {
     await User.create(user)
     .then((user: any) => {
         logRegistration(user);
-        return res.status(200).send(user);
+        return res.status(201).send(user);
     })
     .catch((err: any) => {
-        return handleSpecificError(res, 400, "Problem in request")
+        return handleSpecificError(res, 500, "Problem in request. The email may be already in use or the address in incorrect.")
     });
 }
 

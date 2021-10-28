@@ -6,9 +6,10 @@ dotenv.config(); // load env file
 // get BearerToken
 const extractBearerToken = (headerValue : any) => {
     if (typeof headerValue !== 'string')
-        return false
+        return false;
+
     const matches = headerValue.match(/(bearer)\s+(\S+)/i)
-    return matches && matches[2]
+    return matches && matches[2];
 }
 
 // method to control admin user
@@ -72,7 +73,7 @@ const getLogin = async (req: any, res: any) => {
         return res.json({ access_token: token })
     }
     catch (err) {
-        return res.status(400).json({ message: 'Error. Can\'t access to database' })
+        return res.status(500).json({ message: 'Error. Can\'t access to database' })
     }
 }
 

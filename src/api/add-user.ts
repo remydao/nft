@@ -1,9 +1,7 @@
 import express from "express";
-import {addUser, addUserAdmin} from "../controllers/user-controller";
-import {checkAdminTokenMiddleware} from "../services/authorization";
+import { addUser, addUserAdmin } from "../controllers/user-controller";
 
 const router = express.Router();
-
 
 
 /**
@@ -30,11 +28,11 @@ const router = express.Router();
  *             email:
  *               type: string
  *           example:
- *             address: s
+ *             address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD396"
  *             name: David
  *             email: gazi@hotmail.com
  *     responses:
- *       200:
+ *       201:
  *         description: OK
  *       400: 
  *         description: Incorrect body
