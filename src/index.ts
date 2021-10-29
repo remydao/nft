@@ -40,7 +40,7 @@ const options = {
             'src/api/get-user.ts',
             'src/api/nft.ts',
             'src/api/stats.ts',
-            'src/api/add-to-collection.ts'],
+            'src/api/collection.ts'],
     };
   
 
@@ -64,9 +64,8 @@ app.use(require('./api/change-user-role'))
 app.use(require('./api/add-user-to-team'));
 app.use(require('./api/delete-user'))
 app.use(require('./api/add-history'))
-app.use(require('./api/add-collection'))
 app.use(require('./api/get-user'))
-app.use(require('./api/add-to-collection'))
+app.use(require('./api/collection'))
 
 const port: number = 3000;
 app.listen(port, function () {
