@@ -29,8 +29,7 @@ const swaggerDefinition = {
 
 const options = {
     swaggerDefinition,
-        apis: ['src/api/add-collection.ts',
-            'src/api/add-history.ts',
+        apis: ['src/api/add-history.ts',
             'src/api/add-team.ts',
             'src/api/add-user-to-team.ts',
             'src/api/add-user.ts',
@@ -72,4 +71,5 @@ app.listen(port, function () {
     console.log(`Starting app on port ${port}, please wait...`);
 });
 
-export { port };
+export default app;
+

@@ -4,11 +4,11 @@ import { nftModel } from "../models/nft-model";
 import { teamModel } from "../models/team-model";
 import { userModel } from '../models/user-model';
 import { historyModel } from "../models/history-model";
-import { port } from "../index"
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: './database.sqlite',
+    logging: false
 });
 
 // All models are defined here
@@ -50,8 +50,8 @@ History.belongsTo(User, {
 sequelize.sync()
   .then(() => {
     console.log('Database and tables created!')
-    console.log(`App is listening at http://localhost:${port}`)
-    console.log(`Swagger available at http://localhost:${port}/api`)
+    console.log(`App is listening at http://localhost:3000`)
+    console.log(`Swagger available at http://localhost:3000/api`)
 })
 
 export { User, Team, NFT, Collection, History };
