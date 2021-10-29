@@ -3,15 +3,16 @@ import { handleSpecificError, handleUnknownError, handleValidationError } from "
 
 
 const addHistory = async (req: any, res: any) => {
-    if (!req.body.buyerId|| !req.body.sellerId || !req.body.NFTId)
-        return handleSpecificError(res, 400, "Please put buyerId, sellerId and NFTId in request body.");
+    if (!req.body.buyerId|| !req.body.sellerId || !req.body.NFTId || !req.body.CollectionId)
+        return handleSpecificError(res, 400, "Please put buyerId, sellerId, CollectionId and NFTId in request body.");
 
     try {
         const history = {
             buyerId: req.body.buyerId,
             sellerId: req.body.sellerId,
             NFTId: req.body.NFTId,
-            date: Date.now()
+            date: Date.now(),
+            CollectionId: req.body.CollectionId
         };
 
         await History.create(history)
@@ -24,8 +25,10 @@ const addHistory = async (req: any, res: any) => {
     catch (err: any) {
         if (err.name === "SequelizeValidationError")
             handleValidationError(err, res);
-        else
+        else {
+            console.log(err);
             handleUnknownError(res);
+        }
     }
 }
 

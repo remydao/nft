@@ -45,6 +45,8 @@ History.belongsTo(User, {
     foreignKey: "sellerId",
     as: "seller"
 })
+History.belongsTo(Collection)
+Collection.hasMany(History)
 
 
 sequelize.sync()
