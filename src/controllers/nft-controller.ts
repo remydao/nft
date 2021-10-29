@@ -4,8 +4,8 @@ import { handleSpecificError, handleUnknownError, handleValidationError } from "
 import { logAction } from "../utils/logging";
 
 const addNFT = async (req: any, res: any) => {
-    if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId || !req.body.collectionId)
-        return handleSpecificError(res, 400, "Please put name, price, userId, status and collectionId in request body.");
+    if (!req.body.name || !req.body.price || !req.body.status || !req.body.userId)
+        return handleSpecificError(res, 400, "Please put name, price, userId and status in request body.");
     
     try {
         const token = extractToken(req.headers.authorization);
@@ -19,8 +19,7 @@ const addNFT = async (req: any, res: any) => {
             status: req.body.status,
             rate: 0,
             numberOfRate: 0,
-            UserId: req.body.userId,
-            CollectionId: req.body.collectionId
+            UserId: req.body.userId
         };
         
         await NFT.create(nft)

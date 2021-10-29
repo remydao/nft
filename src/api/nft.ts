@@ -21,7 +21,6 @@ const router = express.Router();
  *               price
  *               status
  *               userId
- *               collectionId
  *           properties:
  *             name:
  *               type: string
@@ -31,14 +30,11 @@ const router = express.Router();
  *               type: string
  *             userId:
  *               type: integer
- *             collectionId:
- *               type: integer
  *           example:
  *             name: David
  *             price: 10
  *             status: Draft
  *             userId: 1
- *             collectionId: 1
  *     responses:
  *       200:
  *         description: OK
