@@ -37,13 +37,14 @@ const getBestSellerTeams = async (req: any, res: any) => {
         })
         .then(async (sellers: any) => {
             if (sellers === null || sellers.length < 1)
-                return res.status(400).send("No sales history");
+                return res.status(200).send("No sales history");
+
             const response = getPagingData(sellers, page, limit);
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err);
-            return res.status(400).send("error on dataBase")
+            return res.status(500).send("Error on database");
         })
 }
 
@@ -53,9 +54,9 @@ const getBestSellerCollections = async (req: any, res: any) => {
     const { limit, offset } = getPagination(page, size);
 
     await History.findAll({
-            attributes: {
-                include:[[Sequelize.fn('COUNT', Sequelize.col('CollectionId')), 'NumberNftSold' ]]
-            },
+            attributes: [
+                [Sequelize.fn('COUNT', Sequelize.col('CollectionId')), 'NumberNftSold']
+            ],
             group: ['CollectionId'],
             limit: limit,
             offset: offset,
@@ -64,13 +65,14 @@ const getBestSellerCollections = async (req: any, res: any) => {
         })
         .then(async (Collections: any) => {
             if (Collections === null || Collections.length < 1)
-                return res.status(400).send("No History of Collection sales");
+                return res.status(200).send("No History of Collection sales");
+
             const response = getPagingData(Collections, page, limit);
             return res.status(200).json({content: response})
         })
         .catch((err:any) => {
             console.log(err);
-            return res.status(400).send("error on dataBase");
+            return res.status(500).send("Error on database");
         })
 }
 
@@ -87,14 +89,14 @@ const getMostRatedNFTs = async (req: any, res: any) => {
         .then(async  (NFTs: any) => {
             if (NFTs === null || NFTs.length < 1) {
                 console.log(`${limit}, ${offset}`)
-                return res.status(400).send("No NFTs");
+                return res.status(200).send("No NFTs");
             }
             const response = getPagingData(NFTs, page, limit);
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err);
-            return res.status(400).send("Error on dataBase");
+            return res.status(500).send("Error on database");
         });
 }
 
@@ -110,13 +112,13 @@ const getLastSells = async (req: any, res: any) => {
         })
         .then(async (lastSells: any) => {
             if (lastSells.length < 1)
-                return res.status(400).send("No sells");
+                return res.status(200).send("No sells");
             const response = getPagingData(lastSells, page, limit);
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err)
-            return res.status(400).send("Error on dataBase")
+            return res.status(500).send("Error on dataBase")
         })
 }
 
@@ -134,13 +136,13 @@ const getOwnSells = async (req: any, res: any) => {
         })
         .then(async (ownSells: any) => {
             if (ownSells.length < 1)
-                return res.status(400).send("You don't have any sells")
+                return res.status(200).send("You don't have any sells")
             const response = getPagingData(ownSells, page, limit);
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err)
-            return res.status(400).send("Error on dataBase")
+            return res.status(500).send("Error on dataBase")
         })
 }
 
