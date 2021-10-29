@@ -47,7 +47,7 @@ const getCollection = async (req: any, res: any) => {
             return res.status(200).json(collections)
         })
         .catch((err: any) => {
-            return handleSpecificError(res, 400, "Problem with the database");
+            return handleSpecificError(res, 500, "Problem with the database");
         })
 }
 
