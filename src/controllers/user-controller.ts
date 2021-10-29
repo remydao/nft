@@ -90,16 +90,17 @@ const updateUserRole = async (req: any, res: any) => {
 const deleteUser = async (req: any, res: any) => {
     if (!req.params.userId && typeof req.params.userId === 'number')
         return handleSpecificError(res, 400, "Specify the good param for the query: userId")
+    
     await User.destroy({
         where : {
             id: req.params.userId
         }
     })
     .catch((err: any) => {
-        return handleSpecificError(res, 400, "Problem with the database")
+        return handleSpecificError(res, 500, "Problem with the database")
     })
-    return res.status(200).json(`User with id ${req.params.userId} has been deleted`)
 
+    return res.status(200).json(`User with id ${req.params.userId} has been deleted`)
 }
 
 export { addUser, updateUserRole, addUserAdmin, deleteUser, getUser };

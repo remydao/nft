@@ -37,15 +37,18 @@ const getBestSellerTeams = async (req: any, res: any) => {
         .then(async (sellers: any) => {
             if (sellers === null || sellers.length < 1)
                 return res.status(400).send("No sales history");
+
             const response = getPagingData(sellers, page, limit);
+
             response.data.sort(function(a: any, b: any) {
                 return a['Sales'] - b['Sales'];
             });
+
             return res.status(200).json({content: response})
         })
         .catch((err: any) => {
             console.log(err);
-            return res.status(400).send("error on dataBase")
+            return res.status(500).send("Error on database");
         })
 }
 
@@ -67,7 +70,9 @@ const getBestSellerCollections = async (req: any, res: any) => {
         .then(async (Collections: any) => {
             if (Collections === null || Collections.length < 1)
                 return res.status(400).send("No History of Collection sales");
+
             const response = getPagingData(Collections, page, limit);
+            
             response.data.sort(function(a: any, b: any) {
                 return a['NumberNftSold'] - b['NumberNftSold'];
             });
@@ -75,7 +80,7 @@ const getBestSellerCollections = async (req: any, res: any) => {
         })
         .catch((err:any) => {
             console.log(err);
-            return res.status(400).send("error on dataBase");
+            return res.status(400).send("Error on database");
         })
 }
 
