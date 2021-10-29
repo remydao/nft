@@ -25,6 +25,9 @@ User.belongsTo(Team, {
   as: "team",
 });
 
+Team.hasMany(Collection, { as: "collections"});
+Collection.belongsTo(Team);
+
 Collection.hasMany(NFT, { as: "NFTs"});
 NFT.belongsTo(Collection)
 NFT.belongsTo(User, {
