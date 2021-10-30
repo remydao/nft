@@ -8,12 +8,12 @@ const router = express.Router()
  *   post:
  *     summary: Get a bearer token
  *     description: Returns your bearer token
- *     parameters:
- *       - in: body
- *         name: parameters
- *         description: parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - email
  *               password

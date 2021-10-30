@@ -7,10 +7,10 @@ import swaggerJsdoc from "swagger-jsdoc";
 const app = express();
 
 const swaggerDefinition = {
-      openapi: "3.0.0",
+      openapi: "3.0.1",
       info: {
         title: "NFT API with Swagger",
-        version: "1.0.0",
+        version: "1.1.0",
       },
       components: {
         securitySchemes: {
@@ -47,12 +47,13 @@ const options = {
 
 app.use(cors())
 app.use(express.urlencoded({extended : true}))
+app.use(express.json());
 
 // Swagger
 const specs = swaggerJsdoc(options);
 app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
 
-app.use(express.json());
+
 
 app.use(require('./api/add-user'));
 app.use(require('./api/nft'));

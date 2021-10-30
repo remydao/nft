@@ -16,6 +16,19 @@ const router = express.Router();
  *         schema:
  *           type: integer
  *         description: User id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *           required:
+ *             - role
+ *           properties:
+ *             role:
+ *               type: string
+ *           example:
+ *             role: admin
  *     responses:
  *       200:
  *         description: User role correclty modified

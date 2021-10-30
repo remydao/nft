@@ -10,12 +10,12 @@ const router = express.Router();
  *   post:
  *     summary: Add an NFT
  *     description: Adds an new NFT
- *     parameters:
- *       - in: body
- *         name: NFT parameters
- *         description: NFT parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - name
  *               price
@@ -54,12 +54,12 @@ router.post('/admin/add-nft', checkAdminTokenMiddleware, addNFT);
  *   put:
  *     summary: Sell an NFT
  *     description: Sells an NFT
- *     parameters:
- *       - in: body
- *         name: parameters
- *         description: parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - nftId
  *               buyerId
@@ -91,12 +91,12 @@ router.put('/sell-nft', checkTokenMiddleware, sellNFT);
  *   put:
  *     summary: Rate an NFT
  *     description: Rate an NFT
- *     parameters:
- *       - in: body
- *         name: parameters
- *         description: parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - nftId
  *               rate
@@ -129,12 +129,12 @@ router.put('/rate-nft', checkTokenMiddleware, rateNFT);
  *   put:
  *     summary: Update NFT status or collection
  *     description: Update NFT status or collection
- *     parameters:
- *       - in: body
- *         name: parameters
- *         description: parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - nftId
  *           properties:

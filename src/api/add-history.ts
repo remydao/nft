@@ -10,31 +10,31 @@ const router = express.Router();
  *   post:
  *     summary: Add an History
  *     description: Add a new selling history (method to bypass ./sellNFT)
- *     parameters:
- *       - in: body
- *         name: History parameters
- *         description: History parameters
- *         schema:
- *           type: object
- *           required:
- *             -nftId
- *              sellerId
- *              buyerId
- *              collectionId
- *           properties:
- *              nftId:
- *                  type: integer
- *              sellerId:
- *                  type: integer
- *              buyerId:
- *                  type: integer
- *              collectionId:
- *                  type: integer
- *           example:
- *              nftId: 1
- *              sellerId: 2
- *              buyerId: 5
- *              collectionId: 2
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nftId
+ *                 sellerId
+ *                 buyerId
+ *                 collectionId
+ *             properties:
+ *               nftId:
+ *                 type: integer
+ *               sellerId:
+ *                 type: integer
+ *               buyerId:
+ *                 type: integer
+ *               collectionId:
+ *                 type: integer
+ *             example:
+ *               nftId: 1
+ *               sellerId: 2
+ *               buyerId: 5
+ *               collectionId: 2
  *     responses:
  *       200:
  *         description: OK

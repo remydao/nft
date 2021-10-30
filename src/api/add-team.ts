@@ -11,12 +11,12 @@ const router = express.Router();
  *   post:
  *     summary: Add a Team
  *     description: Adds a new Team with 1000 credits
- *     parameters:
- *       - in: body
- *         name: Team parameters
- *         description: Team parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - name
  *           properties:

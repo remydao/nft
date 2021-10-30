@@ -10,12 +10,12 @@ const router = express.Router();
  *   post:
  *     summary: Add User to your Team
  *     description: Adds User to your Team
- *     parameters:
- *       - in: body
- *         name: User parameters
- *         description: User parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - userId
  *           properties:

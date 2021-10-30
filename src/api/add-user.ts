@@ -10,12 +10,12 @@ const router = express.Router();
  *   post:
  *     summary: Add a new user with "user" role
  *     description: Add a new user with "user" role
- *     parameters:
- *       - in: body
- *         name: parameters
- *         description: parameters
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *           required:
  *             - address
  *               name
