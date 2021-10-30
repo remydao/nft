@@ -36,6 +36,8 @@ const router = express.Router();
  *         description: Incorrect body, or cannot delete last admin
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 7/ Various
  */
 router.put('/user/:userId', checkAdminTokenMiddleware, updateUserRole);
 

@@ -44,6 +44,8 @@ const router = express.Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *     tags:
+ *       - 3/ NFT Management
  */
 router.post('/admin/add-nft', checkAdminTokenMiddleware, addNFT);
 
@@ -82,6 +84,8 @@ router.post('/admin/add-nft', checkAdminTokenMiddleware, addNFT);
  *         description: Forbidden
  *       404:
  *         description: NFT/Buyer/Seller Not found
+ *     tags:
+ *       - 3/ NFT Management
  */
 router.put('/sell-nft', checkTokenMiddleware, sellNFT);
 
@@ -119,6 +123,8 @@ router.put('/sell-nft', checkTokenMiddleware, sellNFT);
  *         description: Forbidden
  *       404:
  *         description: NFT not found
+ *     tags:
+ *       - 7/ Various
  */
 router.put('/rate-nft', checkTokenMiddleware, rateNFT);
 
@@ -158,6 +164,8 @@ router.put('/rate-nft', checkTokenMiddleware, rateNFT);
  *         description: Forbidden
  *       404:
  *         description: NFT not found
+ *     tags:
+ *       - 3/ NFT Management
  */
 router.put('/update-nft', checkTokenMiddleware, updateNFT)
 

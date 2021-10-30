@@ -1,13 +1,12 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from "swagger-jsdoc";
 
 const app = express();
 
 const swaggerDefinition = {
-      openapi: "3.0.1",
+      openapi: "3.0.0",
       info: {
         title: "NFT API with Swagger",
         version: "1.1.0",
@@ -25,21 +24,20 @@ const swaggerDefinition = {
           bearerAuth: [],
         },
       ],
+      tags: [
+        { name: "1/ Add a user"},
+        { name: "2/ Get bearer token"},
+        { name: "3/ NFT Management"},
+        { name: "4/ Team Management"},
+        { name: "5/ Collection Management"},
+        { name: "6/ Stats"},
+        { name: "7/ Various"}
+      ]
     };
 
 const options = {
     swaggerDefinition,
-        apis: ['src/api/add-history.ts',
-            'src/api/add-team.ts',
-            'src/api/add-user-to-team.ts',
-            'src/api/add-user.ts',
-            'src/api/authorization.ts',
-            'src/api/change-user-role.ts',
-            'src/api/delete-user.ts',
-            'src/api/get-user.ts',
-            'src/api/nft.ts',
-            'src/api/stats.ts',
-            'src/api/collection.ts'],
+        apis: ['src/api/*.ts'],
     };
   
 

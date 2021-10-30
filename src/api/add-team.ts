@@ -33,6 +33,8 @@ const router = express.Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *     tags:
+ *       - 4/ Team Management
  */
 router.post('/team', checkTokenMiddleware, createTeam);
 

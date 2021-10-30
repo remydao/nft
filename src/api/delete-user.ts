@@ -24,6 +24,8 @@ const router = express.Router();
  *         description: Unspecified userId
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 7/ Various
  */
 router.delete('/user/:userId', checkAdminTokenMiddleware, deleteUser);
 

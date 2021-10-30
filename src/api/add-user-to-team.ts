@@ -34,6 +34,8 @@ const router = express.Router();
  *         description: Forbidden
  *       500:
  *         description: Internal Server Error
+ *     tags:
+ *       - 4/ Team Management
  */
 router.post('/add-to-team', checkTokenMiddleware, addToTeam);
 

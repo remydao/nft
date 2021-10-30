@@ -32,6 +32,8 @@ const router = express.Router()
  *         description: Incorrect body
  *       500:
  *         description: Internal Server Error
+ *     tags:
+ *       - 2/ Get bearer token
  */
 router.post('/login', getLogin)
 

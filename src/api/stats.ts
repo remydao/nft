@@ -28,6 +28,8 @@ const router = express.Router();
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 6/ Stats
  */
 router.get('/stats/best-seller-teams', getBestSellerTeams);
 
@@ -54,6 +56,8 @@ router.get('/stats/best-seller-teams', getBestSellerTeams);
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 6/ Stats
  */
 router.get('/stats/best-seller-collections', getBestSellerCollections);
 
@@ -80,6 +84,8 @@ router.get('/stats/best-seller-collections', getBestSellerCollections);
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 6/ Stats 
  */
 router.get('/stats/most-rated-nfts', getMostRatedNFTs);
 
@@ -106,6 +112,8 @@ router.get('/stats/most-rated-nfts', getMostRatedNFTs);
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 6/ Stats
  */
 router.get('/stats/last-sells', getLastSells);
 
@@ -132,6 +140,8 @@ router.get('/stats/last-sells', getLastSells);
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 6/ Stats
  */
 router.get('/stats/own-sells', checkTokenMiddleware, getOwnSells);
 
@@ -147,6 +157,8 @@ router.get('/stats/own-sells', checkTokenMiddleware, getOwnSells);
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 7/ Various
  */
 router.get('/collection', getCollection)
 
@@ -162,6 +174,8 @@ router.get('/collection', getCollection)
  *         description: OK
  *       500:
  *         description: Problem in database
+ *     tags:
+ *       - 7/ Various
  */
 router.get('/team', getTeam)
 
