@@ -53,8 +53,7 @@ app.use(express.json());
 const specs = swaggerJsdoc(options);
 app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
 
-
-
+// Api
 app.use(require('./api/add-user'));
 app.use(require('./api/nft'));
 app.use(require('./api/stats'));

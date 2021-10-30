@@ -1,28 +1,27 @@
 import {Collection, NFT, Team, User} from "../sequelize/sequelize"
 import { extractToken } from "../services/authorization";
-import { handleSpecificError, handleUnknownError, handleValidationError } from "../utils/error-handler";
+import { handleSpecificError, handleUnknownError } from "../utils/error-handler";
 
 
 const createCollection = async(req: any, res:any) => {
-
     if (!req.body.name || !req.body.logo || !req.body.status)
         return handleSpecificError(res, 400, "Please put name, logo and status in request body.");
-
 
     const token = extractToken(req.headers.authorization);
 
     await User.findByPk(token.id)
         .then(async (user: any) => {
             if (user === null)
-                return handleSpecificError(res, 400, "No user corresponding in database, make sure you use the right identification token");
+                return handleSpecificError(res, 400, "No corresponding user in database, make sure you use the right identification token.");
+
             if (user.TeamId === null)
                 return handleSpecificError(res, 400, "You have to be in a team to create a collection.");
 
             await Collection.create({
-                name: req.body.name,
-                logo: req.body.logo,
-                status: req.body.status,
-                TeamId: user.TeamId
+                    name: req.body.name,
+                    logo: req.body.logo,
+                    status: req.body.status,
+                    TeamId: user.TeamId
                 })
                 .then((collection: any) =>
                 {
@@ -55,12 +54,13 @@ const addToCollection = async (req: any, res: any) => {
     if (!req.body.nftId || !req.body.collectionId)
         return handleSpecificError(res, 400, "Please enter valid nftId and collectionId in request body.");
 
-
     const token = extractToken(req.headers.authorization);
+
     await User.findByPk(token.id)
         .then(async (user: any) => {
             if (user === null)
                 return handleSpecificError(res, 400, "No user corresponding in database, make sure you use the right identification token");
+
             if (user.TeamId === null)
                 return handleSpecificError(res, 400, "You have to be in a team to add a NFT to your collection.");
 
@@ -68,6 +68,7 @@ const addToCollection = async (req: any, res: any) => {
                 .then(async (collection: any) => {
                     if (collection === null)
                         return handleSpecificError(res, 400, "No collection corresponding in database. Please verify collectionId.");
+
                     if (collection.TeamId ==! user.TeamId)
                         return handleSpecificError(res, 400, "This collection doesn't belong to your team.");
                 })
@@ -75,8 +76,10 @@ const addToCollection = async (req: any, res: any) => {
                 .then(async (nft: any) => {
                     if (nft === null)
                         return handleSpecificError(res, 400, "No NFT corresponding in database. Please verify nftId.");
+
                     if (nft.UserId != user.id)
-                        return handleSpecificError(res, 400, "NFT can't be added to collection, it doesn't belongs to you.")
+                        return handleSpecificError(res, 400, "NFT can't be added to collection, it doesn't belongs to you.");
+                    
                     if (nft.CollectionId)
                         return handleSpecificError(res, 400, "This NFT is already in a collection");
 
@@ -95,4 +98,6 @@ const addToCollection = async (req: any, res: any) => {
 
     await NFT
 }
+
+
 export { getCollection, createCollection, addToCollection };
