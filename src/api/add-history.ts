@@ -16,24 +16,24 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             required:
- *               - nftId
+ *               - NFTId
  *                 sellerId
  *                 buyerId
- *                 collectionId
+ *                 CollectionId
  *             properties:
- *               nftId:
+ *               NFTId:
  *                 type: integer
  *               sellerId:
  *                 type: integer
  *               buyerId:
  *                 type: integer
- *               collectionId:
+ *               CollectionId:
  *                 type: integer
  *             example:
- *               nftId: 1
+ *               NFTId: 1
  *               sellerId: 2
  *               buyerId: 5
- *               collectionId: 2
+ *               CollectionId: 2
  *     responses:
  *       200:
  *         description: OK
