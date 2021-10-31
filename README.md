@@ -1,6 +1,14 @@
-# NFT manager
+# Project presentation
 
-## How to use the project
+This project is a NFT manager write in typeScript.
+We're exposing our API routes with express. 
+
+The database, in SQLite, is created and managed via Sequelize.
+Data themselves are stored in a local file.
+
+The tests are written thanks to Mocha and Chai.
+
+# How to use the project
 
 First of all, enter the command below
 
@@ -28,13 +36,13 @@ Wait a few seconds, and then go at http://localhost:3000/api to get the swagger 
 
 The swagger is splited in differents categories.
 
-### Add a user
+## 1/ Add a user
 
 ![](images/1.png)
 
 Click on the /user endpoint and click on "Try it out" button. Then click Execute. This will create a user. In the response body, copy the given password (you will need it after).
 
-### Get bearer token
+## 2/ Get bearer token
 
 In the category "2/ Get bearer token", click on the only endpoint available. Click on try it out and paste the password you copied in the password field of the request body. Please also make sure the email is the correct email (the one which you created the user with).
 
@@ -44,7 +52,7 @@ In response body, you will get your access token. Copy it and click on the autho
 
 Then paste your token, click "Authorize" and then "Close". Now you will be able access all endpoints that need you to be logged in. If your token is from an user with admin role, then you can access all endpoints.
 
-## Authors
+# Authors
 
 David Ghiassi
 
