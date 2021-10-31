@@ -39,6 +39,7 @@ describe('GET tests', () => {
         .get('/stats/most-rated-nfts')
         .end((err: any, res: any) => {
           res.should.have.status(200);
+          res.body.should.have.property("message");
           res.body.message.should.be.eql("No NFTs");
           done();
         })
@@ -52,6 +53,7 @@ describe('GET tests', () => {
         .get('/stats/last-sells')
         .end((err: any, res: any) => {
           res.should.have.status(200);
+          res.body.should.have.property("message");
           res.body.message.should.be.eql("No sells");
           done();
         })
