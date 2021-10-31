@@ -1,4 +1,6 @@
-# How to use the project
+# NFT manager
+
+## How to use the project
 
 First of all, enter the command below
 
@@ -26,13 +28,13 @@ Wait a few seconds, and then go at http://localhost:3000/api to get the swagger 
 
 The swagger is splited in differents categories.
 
-## 1/ Add a user
+### Add a user
 
 ![](images/1.png)
 
 Click on the /user endpoint and click on "Try it out" button. Then click Execute. This will create a user. In the response body, copy the given password (you will need it after).
 
-## 2/ Get bearer token
+### Get bearer token
 
 In the category "2/ Get bearer token", click on the only endpoint available. Click on try it out and paste the password you copied in the password field of the request body. Please also make sure the email is the correct email (the one which you created the user with).
 
@@ -42,7 +44,7 @@ In response body, you will get your access token. Copy it and click on the autho
 
 Then paste your token, click "Authorize" and then "Close". Now you will be able access all endpoints that need you to be logged in. If your token is from an user with admin role, then you can access all endpoints.
 
-# Authors
+## Authors
 
 David Ghiassi
 
