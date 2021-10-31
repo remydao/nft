@@ -1,7 +1,6 @@
 // During the test the env variable is set to test
 import { User } from "../src/sequelize";
 import { logRegistration } from "../src/utils/logging";
-process.env.NODE_ENV = 'test';
 
 // Require the dev-dependencies
 let ch = require('chai');
@@ -75,7 +74,7 @@ describe('POST tests', () => {
             });
       });
 
-      it('try to add two user with same email', (done) => {
+      it('Try to add two user with same email', (done) => {
         let user = {
           address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD392",
           name: "David2",

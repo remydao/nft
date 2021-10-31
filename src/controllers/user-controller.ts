@@ -99,7 +99,7 @@ const deleteUser = async (req: any, res: any) => {
         return handleSpecificError(res, 500, "Problem with the database")
     })
 
-    return res.status(200).json(`User with id ${req.params.userId} has been deleted`)
+    return res.status(200).json({ message: `User with id ${req.params.userId} has been deleted` })
 }
 
 export { addUser, updateUserRole, addUserAdmin, deleteUser, getUser };
