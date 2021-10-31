@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=dev ts-node src/index.ts",
-    "test": "cross-env NODE_ENV=test mocha -r ts-node/register test/post-test.ts test/get-test.ts --recursive --timeout 10000 --exit",
+    "test": "cross-env NODE_ENV=test mocha -r ts-node/register test/post-test.ts test/put-test.ts test/get-test.ts --recursive --timeout 10000 --exit",
     "db-init": "cross-env NODE_ENV=dev ts-node scripts/db-init.ts"
   },
   "repository": "https://github.com/remydao/nft.git",

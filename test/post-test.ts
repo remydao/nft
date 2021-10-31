@@ -127,7 +127,6 @@ describe('POST tests', () => {
     });
 
     it('Login with correct fields', (done) => {
-      let password: string = "";
       let user = {
         address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD390",
         name: "David Ghiassi",
@@ -160,6 +159,60 @@ describe('POST tests', () => {
             });
       });
     });
+  });
+
+  describe('POST /team', () => {
+
+    it('Try to add a team while not logged in', (done) => {
+      let team = {
+        name: "GaziTeam"
+      }
+      ch.request(app)
+      .post('/team')
+      .send(team)
+      .end((err: any, res: any) => {
+            res.should.have.status(401);
+            res.body.should.be.a('object');
+            res.body.should.have.property('message');
+        done();
+      });
+    });
+
+
+    it('Add a team when logged as an admi,', (done) => {
+      let login = {
+        email: "gazi@hotmail.fr",
+        password: "testtest"
+      }
+      
+      ch.request(app)
+      .post('/login')
+      .send(login)
+      .end((err: any, res: any) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('access_token');
+            
+            let token = res.body.access_token;
+            let team = {
+              name: "GaziTeam"
+            }
+
+            ch.request(app)
+            .post('/team')
+            .set({ "Authorization": `Bearer ${token}` })
+            .send(team)
+            .end((err: any, res: any) => {
+                  res.should.have.status(200);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('id');
+                  res.body.should.have.property('name').eql(team.name);
+                  res.body.should.have.property('balance').eql(1000);
+                  done();
+            });
+      });
+    });
+
   });
 
 });
