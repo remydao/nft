@@ -262,7 +262,120 @@ describe('POST tests', () => {
   });
 
 
-  describe('POST /team', () => {
+  describe('POST /add-to-team', () => {
+
+    it('Try to add to team without being logged', (done) => {
+      let data = {
+        userId: 2
+      }
+
+      ch.request(app)
+      .post('/add-to-team')
+      .send(data)
+      .end((err: any, res: any) => {
+            res.should.have.status(401);
+            res.body.should.be.a('object');
+            res.body.should.have.property('message');
+        done();
+      });
+    });
+
+    it('Add non-existing user to a team when logged', (done) => {
+      let login = {
+        email: "gazi@hotmail.fr",
+        password: "testtest"
+      }
+      
+      ch.request(app)
+      .post('/login')
+      .send(login)
+      .end((err: any, res: any) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('access_token');
+            
+            let token = res.body.access_token;
+            let data = {
+              userId: 7
+            }
+
+            ch.request(app)
+            .post('/add-to-team')
+            .set({ "Authorization": `Bearer ${token}` })
+            .send(data)
+            .end((err: any, res: any) => {
+                  res.should.have.status(400);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('error');
+                  done();
+            });
+      });
+    });
+
+
+    it('Add user to a team when logged', (done) => {
+      let login = {
+        email: "gazi@hotmail.fr",
+        password: "testtest"
+      }
+      
+      ch.request(app)
+      .post('/login')
+      .send(login)
+      .end((err: any, res: any) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('access_token');
+            
+            let token = res.body.access_token;
+            let data = {
+              userId: 3
+            }
+
+            ch.request(app)
+            .post('/add-to-team')
+            .set({ "Authorization": `Bearer ${token}` })
+            .send(data)
+            .end((err: any, res: any) => {
+                  res.should.have.status(200);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('message');
+                  done();
+            });
+      });
+    });
+
+    it('Try to add a user already belonging to a team', (done) => {
+      let login = {
+        email: "gazi@hotmail.fr",
+        password: "testtest"
+      }
+      
+      ch.request(app)
+      .post('/login')
+      .send(login)
+      .end((err: any, res: any) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('access_token');
+            
+            let token = res.body.access_token;
+            let data = {
+              userId: 3
+            }
+
+            ch.request(app)
+            .post('/add-to-team')
+            .set({ "Authorization": `Bearer ${token}` })
+            .send(data)
+            .end((err: any, res: any) => {
+                  res.should.have.status(400);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('error');
+                  done();
+            });
+      });
+    });
 
   });
 
