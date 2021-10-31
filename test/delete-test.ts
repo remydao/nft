@@ -19,7 +19,7 @@ describe('DELETE tests', () => {
   });
 
   describe('DELETE /user/1', () => {
-      it('it should DELETE the first user', (done) => {
+      it('it should DELETE the second userId', (done) => {
 
         let login = {
             email: "gazi@hotmail.fr",
@@ -36,7 +36,7 @@ describe('DELETE tests', () => {
                     .end((err: any, res: any) => {
                         res.should.have.status(200);
                         res.body.should.have.property("message");
-                        res.body.message.should.be.eql(`User with id 1 has been deleted`);
+                        res.body.message.should.be.eql(`User with id 2 has been deleted`);
                     done();
                     });
           });

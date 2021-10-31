@@ -28,10 +28,25 @@ describe('POST tests', () => {
         email: "gazi@hotmail.fr",
         password: "testtest"
     }
+
+    const user1 = {
+      role: "user",
+      address: "0xc0A2D17f12Adaa2471cCa3a05d6E62996c9CC396",
+      name: "Trixie",
+      email: "trixie@hotmail.fr",
+      password: "testtest"
+  }
   
-    User.create(admin1)
+    User.create(user1)
     .then((user: any) => {
         logRegistration(user);
+      User.create(admin1)
+      .then((user: any) => {
+          logRegistration(user);
+      })
+      .catch((err: any) => {
+          console.log("[ERROR] Error while creating user." + err);
+      });
     })
     .catch((err: any) => {
         console.log("[ERROR] Error while creating user." + err);
@@ -243,6 +258,11 @@ describe('POST tests', () => {
             });
       });
     });
+
+  });
+
+
+  describe('POST /team', () => {
 
   });
 
