@@ -100,9 +100,9 @@ const getMostRatedNFTs = async (req: any, res: any) => {
 }
 
 const getLastSells = async (req: any, res: any) => {
-
-    const { page, size} = req.query;
+    const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
+
     await History.findAll({
         order: [['date', 'DESC']],
         raw: true,
@@ -111,7 +111,7 @@ const getLastSells = async (req: any, res: any) => {
         })
         .then(async (lastSells: any) => {
             if (lastSells.length < 1)
-                return res.status(200).send("No sells");
+                return res.status(200).send({message : "No sells"});
             const response = getPagingData(lastSells, page, limit);
             return res.status(200).json({content: response})
         })
@@ -122,10 +122,11 @@ const getLastSells = async (req: any, res: any) => {
 }
 
 const getOwnSells = async (req: any, res: any) => {
-
-    const { page, size} = req.query;
+    const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
+
     const ownerId = extractToken(req.headers.authorization).id;
+
     await History.findAll( {
             where: {
                 sellerId: ownerId
@@ -136,8 +137,9 @@ const getOwnSells = async (req: any, res: any) => {
         .then(async (ownSells: any) => {
             if (ownSells.length < 1)
                 return res.status(200).send("You don't have any sells")
+
             const response = getPagingData(ownSells, page, limit);
-            return res.status(200).json({content: response})
+            return res.status(200).json({ content: response })
         })
         .catch((err: any) => {
             console.log(err)
