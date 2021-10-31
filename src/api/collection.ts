@@ -6,8 +6,8 @@ const router = express.Router();
 
 /**
  * @swagger
- * /history:
- *   post:
+ * /change-collection-status:
+ *   put:
  *     summary: Change status of a collection
  *     description: change status of Collection with id CollectionID; status can be "Draft", "Published", "Archived"
  *     requestBody:
@@ -36,15 +36,15 @@ const router = express.Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *     tags:
+ *       - 5/ Collection Management
  */
-
-
 router.put('/change-collection-status', checkTokenMiddleware, changeCollectionStatus);
 
 /**
  * @swagger
- * /history:
- *   post:
+ * /add-to-collection:
+ *   put:
  *     summary: Add NFT to collection
  *     description: Add NFT to the specified collection
  *     requestBody:
@@ -73,6 +73,8 @@ router.put('/change-collection-status', checkTokenMiddleware, changeCollectionSt
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *     tags:
+ *       - 5/ Collection Management
  */
 router.put('/add-to-collection', addToCollection);
 
@@ -114,6 +116,8 @@ router.put('/add-to-collection', addToCollection);
  *         description: Forbidden
  *       500:
  *          description: Internal Server Error
+ *     tags:
+ *       - 5/ Collection Management
  */
 router.post('/collection', createCollection);
 

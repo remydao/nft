@@ -43,6 +43,8 @@ const router = express.Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *     tags:
+ *       - 7/ Various
  */
 router.post('/history', addHistory);
 

@@ -76,7 +76,5 @@ sequelize.sync()
 })
 
 
-
-
 export { app };
 
