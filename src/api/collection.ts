@@ -4,8 +4,125 @@ import {addToCollection, createCollection} from "../controllers/collection-contr
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /history:
+ *   post:
+ *     summary: Add an History
+ *     description: Add a new selling history (method to bypass ./sellNFT)
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nftId
+ *                 sellerId
+ *                 buyerId
+ *                 collectionId
+ *             properties:
+ *               nftId:
+ *                 type: integer
+ *               sellerId:
+ *                 type: integer
+ *               buyerId:
+ *                 type: integer
+ *               collectionId:
+ *                 type: integer
+ *             example:
+ *               nftId: 1
+ *               sellerId: 2
+ *               buyerId: 5
+ *               collectionId: 2
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Incorrect body
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
+
+
 router.put('/change-collection-status', checkTokenMiddleware,);
+
+/**
+ * @swagger
+ * /history:
+ *   post:
+ *     summary: Add NFT to collection
+ *     description: Add NFT to the specified collection
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nftId
+ *                 collectionId
+ *             properties:
+ *               nftId:
+ *                 type: integer
+ *               collectionId:
+ *                 type: integer
+ *             example:
+ *               nftId: 1
+ *               collectionId: 2
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Incorrect body
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
 router.put('/add-to-collection', addToCollection);
+
+/**
+ * @swagger
+ * /collection:
+ *   post:
+ *     summary: Create a new collection
+ *     description: Create a new collection
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *                  logo
+ *                  status
+ *             properties:
+ *               name:
+ *                 type: string
+ *               logo:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *             example:
+ *               name: "The batman collection"
+ *               logo: "http://mylog.com/batman"
+ *               status: "drafted"
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Incorrect body
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *          description: Internal Server Error
+ */
 router.post('/collection', createCollection);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /team:
+ * /history:
  *   post:
  *     summary: Add an History
  *     description: Add a new selling history (method to bypass ./sellNFT)
