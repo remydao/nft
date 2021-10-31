@@ -1,4 +1,6 @@
 // During the test the env variable is set to test
+import { User } from "../src/sequelize";
+import { logRegistration } from "../src/utils/logging";
 process.env.NODE_ENV = 'test';
 
 // Require the dev-dependencies
@@ -19,6 +21,22 @@ describe('POST tests', () => {
   before(async function() {
     while (!ready)
       await new Promise(r => setTimeout(r, 100));
+    
+    const admin1 = {
+        role: "admin",
+        address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9CC396",
+        name: "Gazi",
+        email: "gazi@hotmail.fr",
+        password: "testtest"
+    }
+  
+    User.create(admin1)
+    .then((user: any) => {
+        logRegistration(user);
+    })
+    .catch((err: any) => {
+        console.log("[ERROR] Error while creating user." + err);
+    });
   });
 
   describe('POST /user', () => {
@@ -141,8 +159,6 @@ describe('POST tests', () => {
               done();
             });
       });
-
-      
     });
   });
 
