@@ -60,6 +60,7 @@ sequelize.sync({force: process.env.NODE_ENV === 'test' ? true : false})
     // Api
     app.use(require('./api/add-user'));
     app.use(require('./api/nft'));
+    app.use(require('./api/modify-balance'));
     app.use(require('./api/stats'));
     app.use(require('./api/add-team'));
     app.use(require('./api/authorization'));

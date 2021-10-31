@@ -6,7 +6,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /user/{userId}:
+ * /admin/user/{userId}:
  *   put:
  *     summary: Change a user role
  *     description: Change a user role
@@ -39,6 +39,6 @@ const router = express.Router();
  *     tags:
  *       - 7/ Various
  */
-router.put('/user/:userId', checkAdminTokenMiddleware, updateUserRole);
+router.put('/admin/user/:userId', checkAdminTokenMiddleware, updateUserRole);
 
 module.exports = router;
