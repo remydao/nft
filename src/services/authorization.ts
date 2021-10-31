@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config(); // load env file
 
-// get BearerToken
+// Get BearerToken
 const extractBearerToken = (headerValue : any) => {
     if (typeof headerValue !== 'string')
         return false;
@@ -12,7 +12,7 @@ const extractBearerToken = (headerValue : any) => {
     return matches && matches[2];
 }
 
-// method to control admin user
+// Method to control admin user
 const checkAdminTokenMiddleware = (req: any, res: any, next: any) => {
     const token = req.headers.authorization && extractBearerToken(req.headers.authorization)
 
@@ -33,7 +33,7 @@ const checkAdminTokenMiddleware = (req: any, res: any, next: any) => {
     })
 }
 
-// method to control logged users
+// Method to control logged users
 const checkTokenMiddleware = (req: any, res: any, next: any) => {
     const token = req.headers.authorization && extractBearerToken(req.headers.authorization)
 
@@ -50,7 +50,7 @@ const checkTokenMiddleware = (req: any, res: any, next: any) => {
     })
 }
 
-// login method
+// Login method
 const getLogin = async (req: any, res: any) => {
     if (!req.body.email || !req.body.password)
         return res.status(400).json({message: 'Error. Please enter the correct username and password'})
@@ -77,7 +77,7 @@ const getLogin = async (req: any, res: any) => {
     }
 }
 
-// extract the token from the autorization header
+// Extract the token from the autorization header
 const extractToken = (token: any) => {
     const res = token && extractBearerToken(token);
     return jwt.decode(res, { complete: false })

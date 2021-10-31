@@ -5,17 +5,11 @@ import { nftModel } from "./models/nft-model";
 import { teamModel } from "./models/team-model";
 import { userModel } from "./models/user-model";
 
-
-const sequelize = process.env.NODE_ENV === 'test' ? 
-new Sequelize({
+ // Init sequelize
+const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './database-test.sqlite',
+    storage: process.env.NODE_ENV === 'test' ? './database-test.sqlite' : './database.sqlite',
     logging: false,
-}) :
-new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite',
-    logging: false
 });
 
 // All models are defined here
