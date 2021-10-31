@@ -41,6 +41,22 @@ describe('POST tests', () => {
             });
       });
 
+      it('Try to add without mandatory fields', (done) => {
+        let user = {
+          name: "David",
+          email: "gazi@hotmail.com"
+        }
+        ch.request(app)
+            .post('/user')
+            .send(user)
+            .end((err: any, res: any) => {
+                  res.should.have.status(400);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('error');
+              done();
+            });
+      });
+
       it('try to add two user with same email', (done) => {
         let user = {
           address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD392",
@@ -61,7 +77,6 @@ describe('POST tests', () => {
                   res.body.should.have.property('address').eql(user.address);
                   res.body.should.have.property('name').eql(user.name);
                   res.body.should.have.property('email').eql(user.email);
-              done();
             });
 
         ch.request(app)
@@ -70,7 +85,6 @@ describe('POST tests', () => {
         .end((err: any, res: any) => {
               res.should.have.status(400);
               res.body.should.be.a('object');
-              res.body.error.should.be.eql('Problem in request. The email may be already in use or the address is incorrect.') //check error message from response
               res.body.should.have.property('error');
           done();
         });

@@ -53,7 +53,9 @@ app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
 
 sequelize.sync({force: process.env.NODE_ENV === 'test' ? true : false})
 .then(() => {
-    console.log('Database and tables created!');
+    if (process.env.NODE_ENV !== 'test') {
+      console.log('Database and tables created!');
+    }
 
     // Api
     app.use(require('./api/add-user'));
@@ -70,8 +72,10 @@ sequelize.sync({force: process.env.NODE_ENV === 'test' ? true : false})
 
     const port: number = 3000;
     app.listen(port, function () {
-        console.log(`App is listening at http://localhost:3000`);
-        console.log(`Swagger available at http://localhost:3000/api`);
+        if (process.env.NODE_ENV !== 'test') {
+          console.log(`App is listening at http://localhost:3000`);
+          console.log(`Swagger available at http://localhost:3000/api`);
+        }
         app.emit('ready');
     });
 })

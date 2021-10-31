@@ -6,8 +6,6 @@ import { teamModel } from "./models/team-model";
 import { userModel } from "./models/user-model";
 
 
-console.log(process.env.NODE_ENV);
-
 const sequelize = process.env.NODE_ENV === 'test' ? 
 new Sequelize({
     dialect: 'sqlite',
