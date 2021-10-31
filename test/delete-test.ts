@@ -42,8 +42,21 @@ describe('DELETE tests', () => {
                     });
             done();
           });
-
-        
       });
+  });
+
+
+  describe('DELETE /user/2', () => {
+    it('it should fail to DELETE', (done) => {
+        ch.request(app)
+            .delete('/user/2')
+            // No auth => fail
+            .end((err: any, res: any) => {
+                res.should.have.status(401);
+                res.body.should.have.property("message");
+                res.body.message.should.be.eql('Error. Need a token');
+            done();
+        });
+    });
   });
 });
