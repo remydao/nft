@@ -1,4 +1,4 @@
-import { User, Team } from "../sequelize/sequelize";
+import { User, Team } from "../index";
 import { extractToken } from "../services/authorization";
 import { handleSpecificError, handleUnknownError, handleValidationError } from "../utils/error-handler";
 

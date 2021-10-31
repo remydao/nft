@@ -1,4 +1,4 @@
-import { History } from "../sequelize/sequelize";
+import { History } from "../index";
 import { handleSpecificError, handleUnknownError, handleValidationError } from "../utils/error-handler";
 
 
