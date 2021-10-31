@@ -19,12 +19,13 @@ describe('GET tests', () => {
   });
 
   describe('GET /user', () => {
-      it('it should GET all the users', (done) => {
+      it('it should fail to GET all the users', (done) => {
         ch.request(app)
             .get('/user')
             .end((err: any, res: any) => {
-                  res.should.have.status(200);
-                  res.body.should.be.a('array');
+                  res.should.have.status(401);
+                  res.body.should.have.property("message");
+                  res.body.message.should.be.eql("Error. Need a token");
               done();
             });
       });

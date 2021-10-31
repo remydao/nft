@@ -12,6 +12,7 @@ const addNFT = async (req: any, res: any) => {
 
         if (token.role !== "admin")
             return handleSpecificError(res, 403, "You are not admin");
+            
         if (req.files) {
             let file = req.files.filename;
             file.mv('./uploads/' + file.name)

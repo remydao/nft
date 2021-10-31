@@ -3,7 +3,7 @@ import { extractToken } from "../services/authorization";
 import { handleSpecificError, handleUnknownError } from "../utils/error-handler";
 
 
-const createCollection = async(req: any, res:any) => {
+const createCollection = async (req: any, res: any) => {
     if (!req.body.name || !req.body.logo || !req.body.status)
         return handleSpecificError(res, 400, "Please put name, logo and status in request body.");
 
