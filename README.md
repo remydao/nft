@@ -1,10 +1,10 @@
 # Project presentation
 
-This project is a NFT manager written in TypeScript. We're exposing our API routes with express. 
+This project is a NFT manager written in TypeScript. We're exposing our API routes with Express as it is a simple library.
 
 The database, in SQLite, is created and managed via Sequelize. This way you don't need to use docker because data is stored in a local file.
 
-The tests are written thanks to Mocha and Chai.
+The tests are written thanks to Mocha and Chai, because we already used it a lot.
 
 # How to use the project
 
@@ -49,6 +49,10 @@ In response body, you will get your access token. Copy it and click on the autho
 ![](images/2.png)
 
 Then paste your token, click "Authorize" and then "Close". Now you will be able access all endpoints that need you to be logged in. If your token is from an user with admin role, then you can access all endpoints.
+
+## Other categories
+
+Please see the documentation at http://localhost:3000/api
 
 # Authors
 
