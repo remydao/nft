@@ -23,13 +23,57 @@ describe('POST tests', () => {
 
   describe('POST /user', () => {
       it('add a new user with user role', (done) => {
+        let user = {
+          address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD391",
+          name: "David",
+          email: "gazi@hotmail.com"
+        }
         ch.request(app)
             .post('/user')
+            .send(user)
             .end((err: any, res: any) => {
                   res.should.have.status(201);
-                  res.body.should.be.a('array');
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('address').eql(user.address);
+                  res.body.should.have.property('name').eql(user.name);
+                  res.body.should.have.property('email').eql(user.email);
               done();
             });
+      });
+
+      it('try to add two user with same email', (done) => {
+        let user = {
+          address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD392",
+          name: "David2",
+          email: "gazi2@hotmail.com"
+        }
+        let user2 = {
+          address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD33",
+          name: "Davide",
+          email: "gazi2@hotmail.com"
+        }
+        ch.request(app)
+            .post('/user')
+            .send(user)
+            .end((err: any, res: any) => {
+                  res.should.have.status(201);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('address').eql(user.address);
+                  res.body.should.have.property('name').eql(user.name);
+                  res.body.should.have.property('email').eql(user.email);
+              done();
+            });
+
+        ch.request(app)
+        .post('/user')
+        .send(user)
+        .end((err: any, res: any) => {
+              res.should.have.status(400);
+              res.body.should.be.a('object');
+              res.body.error.should.be.eql('Problem in request. The email may be already in use or the address is incorrect.') //check error message from response
+              res.body.should.have.property('error');
+          done();
+        });
       });
   });
 });
