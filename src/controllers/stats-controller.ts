@@ -82,14 +82,13 @@ const getMostRatedNFTs = async (req: any, res: any) => {
     const { limit, offset } = getPagination(page, size);
 
     await NFT.findAll({
-        order:[['rate', 'DESC']],
+        order: [['rate', 'DESC']],
         limit: limit,
         offset: offset
         })
-        .then(async  (NFTs: any) => {
+        .then(async (NFTs: any) => {
             if (NFTs === null || NFTs.length < 1) {
-                console.log(`${limit}, ${offset}`)
-                return res.status(200).send("No NFTs");
+                return res.status(200).send({ message: "No NFTs" });
             }
             const response = getPagingData(NFTs, page, limit);
             return res.status(200).json({content: response})

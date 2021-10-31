@@ -21,7 +21,6 @@ describe('GET tests', () => {
       await new Promise(r => setTimeout(r, 100));
   });
 
-
   describe('GET /user', () => {
       it('it should GET all the users', (done) => {
         ch.request(app)
@@ -34,4 +33,15 @@ describe('GET tests', () => {
       });
   });
 
+  describe("GET /stats/most-rated-ntfs", () => {
+    it("it should GET most rated NFTs", (done) => {
+      ch.request(app)
+        .get('/stats/most-rated-nfts')
+        .end((err: any, res: any) => {
+          res.should.have.status(200);
+          res.body.message.should.be.eql("No NFTs");
+          done();
+        })
+    })
+  })
 });
