@@ -44,4 +44,17 @@ describe('GET tests', () => {
         })
     })
   })
+
+
+  describe("GET /stats/last-sells", () => {
+    it("it should GET last sells", (done) => {
+      ch.request(app)
+        .get('/stats/last-sells')
+        .end((err: any, res: any) => {
+          res.should.have.status(200);
+          res.body.message.should.be.eql("No sells");
+          done();
+        })
+    })
+  })
 });
