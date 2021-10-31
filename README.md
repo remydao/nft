@@ -15,6 +15,12 @@ Then go at http://localhost:3000/api to get the swagger documentation.
 yarn db-init
 ```
 
+## Launch tests
+
+```shell
+yarn test
+```
+
 ## Authors
 
 David Ghiassi
