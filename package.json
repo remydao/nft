@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "test": "mocha -r ts-node/register test/get-test.ts test/post-test.ts --recursive --timeout 10000 --exit",
-    "db-init": "ts-node scripts/db-init.ts"
+    "start": "NODE_ENV=dev ts-node src/index.ts",
+    "test": "NODE_ENV=test mocha -r ts-node/register test/get-test.ts test/post-test.ts --recursive --timeout 10000 --exit",
+    "db-init": "NODE_ENV=dev ts-node scripts/db-init.ts"
   },
   "repository": "https://github.com/remydao/nft.git",
   "author": "remydao <remy.dao.pro@gmail.com>",

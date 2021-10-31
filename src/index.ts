@@ -51,7 +51,7 @@ const specs = swaggerJsdoc(options);
 app.use("/api", swaggerUi.serve, swaggerUi.setup(specs));
 
 
-sequelize.sync()
+sequelize.sync({force: process.env.NODE_ENV === 'test' ? true : false})
 .then(() => {
     console.log('Database and tables created!');
 

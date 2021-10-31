@@ -104,3 +104,4 @@ dist
 
 # sqlite db inmemory
 database.sqlite
+database-test.sqlite
