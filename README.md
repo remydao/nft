@@ -1,2 +1,26 @@
 # nft
-Nft backend in NodeJS
+
+## Launch the project
+
+```shell
+yarn install
+yarn start
+```
+
+Then go at http://localhost:3000/api to get the swagger documentation.
+
+## Populate database
+
+```shell
+yarn db-init
+```
+
+## Authors
+
+David Ghiassi
+
+Remy Dao
+
+Louis Arrignon
+
+Niels Beeker
