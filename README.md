@@ -40,7 +40,7 @@ In response body, you will get your access token. Copy it and click on the autho
 
 ![](images/2.png)
 
-Then paste your token, click "Authorize" and then "Close".
+Then paste your token, click "Authorize" and then "Close". Now you will be able access all endpoints that need you to be logged in. If your token is from an user with admin role, then you can access all endpoints.
 
 # Authors
 
