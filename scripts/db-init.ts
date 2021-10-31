@@ -1,4 +1,4 @@
-import { NFT, sequelize, User } from "../src/sequelize";
+import { NFT, sequelize, Team, User } from "../src/sequelize";
 import { logRegistration } from "../src/utils/logging";
 
 
@@ -31,7 +31,7 @@ sequelize.sync()
     User.create(admin2).then((user: any) => {
         logRegistration(user);
 
-        const nft = {
+        const nft1 = {
             name: "NFT1",
             price: 100,
             status: "Draft",
@@ -40,12 +40,35 @@ sequelize.sync()
             UserId: user.id
         };
 
-        NFT.create(nft).then((nft: any) => {
-            console.log("NFT1 created and added to userId " + user.id);
+        NFT.create(nft1).then((nft: any) => {
+            console.log("NFT1 (id: " + nft.id + ") created and added to userId " + user.id + " (" + user.name + ")");
+
+            const nft2 = {
+                name: "NFT2",
+                price: 50,
+                status: "Draft",
+                rate: 0,
+                numberOfRate: 0,
+                UserId: user.id
+            };
+
+
+            NFT.create(nft2).then((nft: any) => {
+                console.log("NFT2 (id: " + nft.id + ") created and added to userId " + user.id + " (" + user.name + ")")
+
+                const team = {
+                    name: "GaziTeam",
+                    balance: 1000
+                };
+    
+                Team.create(team).then((team: any) => {
+                    console.log(team.name + " created with balance " + team.balance + " (TeamId: " + team.id + ")");
+                })
+            })
         })
     })
     .catch((err: any) => {
-        console.log("[ERROR] Error while creating user." + err);
+        console.log("[ERROR] Error while creating data from models: " + err);
     });
 });
 

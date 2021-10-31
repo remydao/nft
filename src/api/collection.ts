@@ -92,8 +92,8 @@ router.put('/add-to-collection', addToCollection);
  *             type: object
  *             required:
  *               - name
- *                  logo
- *                  status
+ *                 logo
+ *                 status
  *             properties:
  *               name:
  *                 type: string
