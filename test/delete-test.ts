@@ -2,7 +2,6 @@
 let ch = require('chai');
 let chaiHttp = require('chai-http');
 import {app} from "../src/index";
-import { User } from "../src/sequelize";
 let should = ch.should();
 ch.use(chaiHttp);
 
