@@ -1,3 +1,13 @@
+# Project presentation
+
+This project is a NFT manager write in typeScript.
+We're exposing our API routes with express. 
+
+The database, in SQLite, is created and managed via Sequelize.
+Data themselves are stored in a local file.
+
+The tests are written thanks to Mocha and Chai.
+
 # How to use the project
 
 First of all, enter the command below
