@@ -39,7 +39,6 @@ describe('DELETE tests', () => {
                         res.body.message.should.be.eql(`User with id 1 has been deleted`);
                     done();
                     });
-            done();
           });
       });
   });
