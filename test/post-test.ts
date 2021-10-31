@@ -66,7 +66,7 @@ describe('POST tests', () => {
 
         ch.request(app)
         .post('/user')
-        .send(user)
+        .send(user2)
         .end((err: any, res: any) => {
               res.should.have.status(400);
               res.body.should.be.a('object');
