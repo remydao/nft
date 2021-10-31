@@ -90,4 +90,60 @@ describe('POST tests', () => {
         });
       });
   });
+
+
+  describe('POST /login', () => {
+    it('Try to login with incorrect fields', (done) => {
+      let login = {
+        email: "gazi@hotmail.com"
+      }
+      ch.request(app)
+          .post('/login')
+          .send(login)
+          .end((err: any, res: any) => {
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+            done();
+          });
+    });
+
+    it('Login with correct fields', (done) => {
+      let password: string = "";
+      let user = {
+        address: "0xc0A2D17f12Adaa24719Ca3a05d6E62996c9DD390",
+        name: "David Ghiassi",
+        email: "gazi23@hotmail.com"
+      }
+
+      ch.request(app)
+      .post('/user')
+      .send(user)
+      .end((err: any, res: any) => {
+            res.should.have.status(201);
+            res.body.should.be.a('object');
+            res.body.should.have.property('address').eql(user.address);
+            res.body.should.have.property('name').eql(user.name);
+            res.body.should.have.property('email').eql(user.email);
+    
+            let login = {
+              email: "gazi23@hotmail.com",
+              password: res.body.password
+            }
+            
+            ch.request(app)
+            .post('/login')
+            .send(login)
+            .end((err: any, res: any) => {
+                  res.should.have.status(200);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('access_token');
+              done();
+            });
+      });
+
+      
+    });
+  });
+
 });
