@@ -1,4 +1,4 @@
-import {User, Team, NFT, History, Collection} from "../index";
+import { NFT, History } from "../sequelize";
 import {Sequelize} from "sequelize";
 import { extractToken} from "../services/authorization";
 

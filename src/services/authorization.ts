@@ -1,4 +1,4 @@
-import { User } from "../index";
+import { User } from "../sequelize";
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config(); // load env file

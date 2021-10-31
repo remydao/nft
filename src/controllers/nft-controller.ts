@@ -1,4 +1,4 @@
-import {History, NFT, Team, User} from "../index";
+import { History, NFT, Team, User } from "../sequelize";
 import { extractToken } from "../services/authorization";
 import { handleSpecificError, handleUnknownError, handleValidationError } from "../utils/error-handler";
 import { logAction } from "../utils/logging";

@@ -1,5 +1,5 @@
 import { logRegistration } from "../utils/logging";
-import { User } from "../index";
+import { User } from "../sequelize";
 import { extractToken } from "../services/authorization";
 import { handleSpecificError } from "../utils/error-handler";
 
