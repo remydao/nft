@@ -22,6 +22,8 @@ const router = express.Router();
  *         description: User deleted
  *       400:
  *         description: Unspecified userId
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: Problem in database
  *     tags:
