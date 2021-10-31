@@ -13,6 +13,16 @@ const createTeam = async (req: any, res: any) => {
 
     const token = extractToken(req.headers.authorization);
 
+    await User.findByPk(token.id)
+    .then(async (user: any) => {
+        if (user.TeamId) {
+            return handleSpecificError(res, 401, "You are not authorized to add a team because you already have one !");
+        }
+    })
+    .catch((err: any) => {
+        return handleSpecificError(res, 500, 'Problem with the database');
+    });
+
     await Team.create(team)
     .then((createdTeam: any) => {
         User.update(
@@ -26,7 +36,7 @@ const createTeam = async (req: any, res: any) => {
         if (err.name === "SequelizeValidationError")
             handleValidationError(err, res);
         else
-            handleUnknownError(res);
+            return handleSpecificError(res, 500, 'Problem with the database');
     });
 }
 

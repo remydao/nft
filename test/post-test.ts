@@ -178,7 +178,7 @@ describe('POST tests', () => {
     });
 
 
-    it('Add a team when logged as an admi,', (done) => {
+    it('Add a team when logged as an admin', (done) => {
       let login = {
         email: "gazi@hotmail.fr",
         password: "testtest"
@@ -207,6 +207,38 @@ describe('POST tests', () => {
                   res.body.should.have.property('id');
                   res.body.should.have.property('name').eql(team.name);
                   res.body.should.have.property('balance').eql(1000);
+                  done();
+            });
+      });
+    });
+
+    it('Try to add team when already in a team', (done) => {
+      let login = {
+        email: "gazi@hotmail.fr",
+        password: "testtest"
+      }
+      
+      ch.request(app)
+      .post('/login')
+      .send(login)
+      .end((err: any, res: any) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('access_token');
+            
+            let token = res.body.access_token;
+            let team = {
+              name: "RemyTeam"
+            }
+
+            ch.request(app)
+            .post('/team')
+            .set({ "Authorization": `Bearer ${token}` })
+            .send(team)
+            .end((err: any, res: any) => {
+                  res.should.have.status(401);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('error');
                   done();
             });
       });
