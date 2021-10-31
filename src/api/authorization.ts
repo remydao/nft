@@ -1,5 +1,5 @@
 import express from "express";
-import { checkAdminTokenMiddleware, extractToken, getLogin } from "../services/authorization";
+import { getLogin } from "../services/authorization";
 const router = express.Router()
 
 /**
@@ -36,10 +36,5 @@ const router = express.Router()
  *       - 2/ Get bearer token
  */
 router.post('/login', getLogin)
-
-router.get('/testadmin', checkAdminTokenMiddleware, (req : any, res : any) => {
-    const token = extractToken(req.headers.authorization)
-    return res.json({content: token})
-})
 
 module.exports = router;

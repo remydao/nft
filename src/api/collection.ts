@@ -76,7 +76,7 @@ router.put('/change-collection-status', checkTokenMiddleware, changeCollectionSt
  *     tags:
  *       - 5/ Collection Management
  */
-router.put('/add-to-collection', addToCollection);
+router.put('/add-to-collection', checkTokenMiddleware, addToCollection);
 
 /**
  * @swagger
@@ -104,7 +104,7 @@ router.put('/add-to-collection', addToCollection);
  *             example:
  *               name: "The batman collection"
  *               logo: "http://mylog.com/batman"
- *               status: "drafted"
+ *               status: "Draft"
  *     responses:
  *       200:
  *         description: OK
@@ -119,6 +119,6 @@ router.put('/add-to-collection', addToCollection);
  *     tags:
  *       - 5/ Collection Management
  */
-router.post('/collection', createCollection);
+router.post('/collection', checkTokenMiddleware, createCollection);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import express from "express";
 import { addHistory } from "../controllers/history-controller";
+import {checkTokenMiddleware} from "../services/authorization";
 
 const router = express.Router();
 
@@ -46,6 +47,6 @@ const router = express.Router();
  *     tags:
  *       - 7/ Various
  */
-router.post('/history', addHistory);
+router.post('/history', checkTokenMiddleware, addHistory);
 
 module.exports = router;

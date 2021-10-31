@@ -29,11 +29,12 @@ const createCollection = async(req: any, res:any) => {
                     return res.status(200).send("OK");
                 })
                 .catch((err: any) => {
+                    console.log(err)
                     return handleUnknownError(res);
                 });
 
         })
-        .catch((err: any) => {
+        .catch(() => {
             return handleSpecificError(res, 500, 'Problem with the database');
         });
 
@@ -45,7 +46,7 @@ const getCollection = async (req: any, res: any) => {
         .then((collections: any) => {
             return res.status(200).json(collections)
         })
-        .catch((err: any) => {
+        .catch(() => {
             return handleSpecificError(res, 500, "Problem with the database");
         })
 }
@@ -92,11 +93,9 @@ const addToCollection = async (req: any, res: any) => {
                         });
                 })
         })
-        .catch((err: any) => {
+        .catch(() => {
             return handleSpecificError(res, 500, 'Problem with the database');
         });
-
-    await NFT
 }
 
 const changeCollectionStatus = async (req: any, res: any) => {

@@ -12,18 +12,23 @@ const addNFT = async (req: any, res: any) => {
 
         if (token.role !== "admin")
             return handleSpecificError(res, 403, "You are not admin");
+        if (req.files) {
+            let file = req.files.filename;
+            file.mv('./uploads/' + file.name)
+        }
 
         const nft = {
             name: req.body.name,
-            price: req.body.price,
+            price: parseInt(req.body.price),
             status: req.body.status,
             rate: 0,
             numberOfRate: 0,
-            UserId: req.body.userId
+            UserId: parseInt(req.body.userId),
+            image: '/uploads/' + req.files.filename.name
         };
         
         await NFT.create(nft)
-        .then((nft: any) =>
+        .then(() =>
         {
             return res.status(200).send("OK");
         })
@@ -50,7 +55,7 @@ const sellNFT = async (req: any, res: any) => {
     if (!nft)
         return handleSpecificError(res, 404, "NFT with id = " + req.body.nftId + " not found.");
 
-    const seller: any = await User.findByPk(token.id).catch((err) => { 
+    const seller: any = await User.findByPk(token.id).catch(() => {
         return handleSpecificError(res, 500, "Internal server error");
     });
 
@@ -86,7 +91,7 @@ const sellNFT = async (req: any, res: any) => {
     };
 
     await History.create(history)
-        .then((history: any) =>
+        .then(() =>
         {
             logAction(buyer.name, seller.name, nft.id);
             return res.status(200).send("OK");

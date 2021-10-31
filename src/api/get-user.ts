@@ -1,5 +1,6 @@
 import express from "express";
 import { getUser } from "../controllers/user-controller";
+import {checkAdminTokenMiddleware} from "../services/authorization";
 
 const router = express.Router();
 
@@ -17,6 +18,6 @@ const router = express.Router();
  *     tags:
  *       - 7/ Various
  */
-router.get('/user', getUser)
+router.get('/user', checkAdminTokenMiddleware, getUser)
 
 module.exports = router;

@@ -4,6 +4,8 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from "swagger-jsdoc";
 import { sequelize } from "./sequelize";
 
+const fileUpload = require('express-fileupload');
+
 const app = express();
 
 const swaggerDefinition = {
@@ -45,6 +47,9 @@ const options = {
 app.use(cors())
 app.use(express.urlencoded({extended : true}))
 app.use(express.json());
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 // Swagger
 const specs = swaggerJsdoc(options);

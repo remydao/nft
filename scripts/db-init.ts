@@ -37,7 +37,8 @@ sequelize.sync()
             status: "Draft",
             rate: 0,
             numberOfRate: 0,
-            UserId: user.id
+            UserId: user.id,
+            image: "image_inconnue2"
         };
 
         NFT.create(nft1).then((nft: any) => {
@@ -49,7 +50,8 @@ sequelize.sync()
                 status: "Draft",
                 rate: 0,
                 numberOfRate: 0,
-                UserId: user.id
+                UserId: user.id,
+                image: "image_inconnue"
             };
 
 
