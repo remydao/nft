@@ -329,7 +329,7 @@ describe('POST tests', () => {
             
             let token = res.body.access_token;
             let data = {
-              userId: 3
+              userId: 4
             }
 
             ch.request(app)
