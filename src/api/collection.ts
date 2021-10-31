@@ -1,6 +1,6 @@
 import express from "express";
 import { checkTokenMiddleware } from "../services/authorization";
-import {addToCollection, createCollection} from "../controllers/collection-controller";
+import {addToCollection, createCollection, changeCollectionStatus} from "../controllers/collection-controller";
 
 const router = express.Router();
 
@@ -8,8 +8,8 @@ const router = express.Router();
  * @swagger
  * /history:
  *   post:
- *     summary: Add an History
- *     description: Add a new selling history (method to bypass ./sellNFT)
+ *     summary: Change status of a collection
+ *     description: change status of Collection with id CollectionID; status can be "Draft", "Published", "Archived"
  *     requestBody:
  *       required: true
  *       content:
@@ -17,24 +17,16 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             required:
- *               - nftId
- *                 sellerId
- *                 buyerId
- *                 collectionId
+ *               - collectionId
+ *                 status
  *             properties:
- *               nftId:
- *                 type: integer
- *               sellerId:
- *                 type: integer
- *               buyerId:
- *                 type: integer
+ *               status:
+ *                 type: string
  *               collectionId:
  *                 type: integer
  *             example:
- *               nftId: 1
- *               sellerId: 2
- *               buyerId: 5
  *               collectionId: 2
+ *               status: "archived"
  *     responses:
  *       200:
  *         description: OK
@@ -47,7 +39,7 @@ const router = express.Router();
  */
 
 
-router.put('/change-collection-status', checkTokenMiddleware,);
+router.put('/change-collection-status', checkTokenMiddleware, changeCollectionStatus);
 
 /**
  * @swagger

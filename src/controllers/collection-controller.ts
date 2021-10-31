@@ -99,5 +99,47 @@ const addToCollection = async (req: any, res: any) => {
     await NFT
 }
 
+const changeCollectionStatus = async (req: any, res: any) => {
 
-export { getCollection, createCollection, addToCollection };
+    if (!req.body.status || !req.body.collectionId)
+        return handleSpecificError(res, 400, "Please enter valid status and collectionId in request body.");
+
+
+    const token = extractToken(req.headers.authorization);
+
+    await User.findByPk(token.id)
+        .then(async (user: any) => {
+            if (user === null)
+                return handleSpecificError(res, 400, "No user corresponding in database, make sure you use the right identification token");
+
+            if (user.TeamId === null)
+                return handleSpecificError(res, 401, "You have to be in a team to add a NFT to your collection.");
+
+            await Collection.findByPk(req.body.collectionId)
+                .then(async (collection: any) => {
+                    if (collection === null)
+                        return handleSpecificError(res, 400, "No collection corresponding in database. Please verify collectionId.");
+
+                    if (collection.TeamId ==! user.TeamId)
+                        return handleSpecificError(res, 401, "This collection doesn't belong to your team.");
+                });
+        })
+        .catch((err: any) => {
+            console.log(err)
+            return handleSpecificError(res, 500, 'Problem with the database');
+        });
+    await Collection.update(
+        { status : req.body.status },
+        { where : { id: req.body.collectionId } }
+        )
+        .then((updatedCollection) => {
+            return res.status(200).send(updatedCollection)
+        })
+        .catch((err: any) => {
+            console.log(err)
+            return handleSpecificError(res, 500, 'Problem with the database');
+        });
+}
+
+
+export { getCollection, createCollection, addToCollection, changeCollectionStatus };

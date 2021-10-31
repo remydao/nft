@@ -152,7 +152,7 @@ router.put('/rate-nft', checkTokenMiddleware, rateNFT);
  *               type: integer
  *           example:
  *             nftId: 1
- *             rate: 5
+ *             collectionId: 5
  *     responses:
  *       200:
  *         description: OK
