@@ -13,28 +13,26 @@ const router = express.Router();
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
- *           required:
- *             - name
- *               price
- *               status
- *               userId
- *           properties:
- *             name:
- *               type: string
- *             price:
- *               type: integer
- *             status:
- *               type: string
- *             userId:
- *               type: integer
- *           example:
- *             name: David
- *             price: 10
- *             status: Draft
- *             userId: 1
+ *             properties:
+ *               name:
+ *                 type: string
+ *               price:
+ *                 type: integer
+ *               status:
+ *                 type: string
+ *               userId:
+ *                 type: integer
+ *               filename:
+ *                 type: string
+ *                 format: binary
+ *             example:
+ *               name: David
+ *               price: 10
+ *               status: Draft
+ *               userId: 1
  *     responses:
  *       200:
  *         description: OK

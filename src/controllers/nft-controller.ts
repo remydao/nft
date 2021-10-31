@@ -26,12 +26,16 @@ const addNFT = async (req: any, res: any) => {
             UserId: parseInt(req.body.userId),
             image: '/uploads/' + req.files.filename.name
         };
-        
-        await NFT.create(nft)
-        .then(() =>
-        {
-            return res.status(200).send("OK");
-        })
+        await User.findByPk(req.body.userId)
+            .then(async (user: any) => {
+                if (user === null)
+                    return handleSpecificError(res, 404, "User with id = " + req.body.userId + " not found.");
+                await NFT.create(nft)
+                    .then(() =>
+                    {
+                        return res.status(200).send("OK");
+                    })
+            })
     }
     catch (err: any) {
         console.log(err);
