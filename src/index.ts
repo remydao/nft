@@ -72,6 +72,7 @@ sequelize.sync()
     app.listen(port, function () {
         console.log(`App is listening at http://localhost:3000`);
         console.log(`Swagger available at http://localhost:3000/api`);
+        app.emit('ready');
     });
 })
 

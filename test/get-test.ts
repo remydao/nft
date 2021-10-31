@@ -6,11 +6,22 @@ let ch = require('chai');
 let chaiHttp = require('chai-http');
 import {app} from "../src/index";
 let should = ch.should();
-
-
 ch.use(chaiHttp);
 
+
+var ready = false;
+
+app.on('ready', function () {
+  ready = true;
+})
+
 describe('GET tests', () => {
+  before(async function() {
+    while (!ready)
+      await new Promise(r => setTimeout(r, 100));
+  });
+
+
   describe('GET /user', () => {
       it('it should GET all the users', (done) => {
         ch.request(app)
