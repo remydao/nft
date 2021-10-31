@@ -57,7 +57,7 @@ const addUser = async (req: any, res: any) => {
         return res.status(201).send(user);
     })
     .catch((err: any) => {
-        return handleSpecificError(res, 500, "Problem in request. The email may be already in use or the address in incorrect.")
+        return handleSpecificError(res, 400, "Problem in request. The email may be already in use or the address is incorrect.")
     });
 }
 
