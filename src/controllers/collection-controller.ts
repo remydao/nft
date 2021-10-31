@@ -62,7 +62,7 @@ const addToCollection = async (req: any, res: any) => {
                 return handleSpecificError(res, 400, "No user corresponding in database, make sure you use the right identification token");
 
             if (user.TeamId === null)
-                return handleSpecificError(res, 400, "You have to be in a team to add a NFT to your collection.");
+                return handleSpecificError(res, 401, "You have to be in a team to add a NFT to your collection.");
 
             await Collection.findByPk(req.body.collectionId)
                 .then(async (collection: any) => {
@@ -70,7 +70,7 @@ const addToCollection = async (req: any, res: any) => {
                         return handleSpecificError(res, 400, "No collection corresponding in database. Please verify collectionId.");
 
                     if (collection.TeamId ==! user.TeamId)
-                        return handleSpecificError(res, 400, "This collection doesn't belong to your team.");
+                        return handleSpecificError(res, 401, "This collection doesn't belong to your team.");
                 })
             await NFT.findByPk(req.body.nftId)
                 .then(async (nft: any) => {
@@ -78,7 +78,7 @@ const addToCollection = async (req: any, res: any) => {
                         return handleSpecificError(res, 400, "No NFT corresponding in database. Please verify nftId.");
 
                     if (nft.UserId != user.id)
-                        return handleSpecificError(res, 400, "NFT can't be added to collection, it doesn't belongs to you.");
+                        return handleSpecificError(res, 401, "NFT can't be added to collection, it doesn't belongs to you.");
                     
                     if (nft.CollectionId)
                         return handleSpecificError(res, 400, "This NFT is already in a collection");
